@@ -1,4 +1,4 @@
-# piptools_sync
+# piptools-sync
 
 > Short blurb about what your product does.
 
@@ -36,13 +36,13 @@ One to two paragraph statement about your product and what it does.
 OS X & Linux:
 
 ```sh
-pip3 install piptools_sync
+pip3 install piptools-sync
 ```
 
 Windows:
 
 ```sh
-pip install piptools_sync
+pip install piptools-sync
 ```
 
 ## Usage example
@@ -56,20 +56,20 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
 
 ```sh
-pip install --editable piptools_sync
+pip install --editable piptools-sync
 ```
 
 ## Documentation
 
-### - [**Read the Docs**](https://piptools_sync.readthedocs.io/en/latest/)
+### - [**Read the Docs**](https://piptools-sync.readthedocs.io/en/latest/)
 
-### - [**Wiki**](https://github.com/Stephen-RA-King/piptools_sync/wiki)
+### - [**Wiki**](https://github.com/Stephen-RA-King/piptools-sync/wiki)
 
 ## Meta
 
 [![](assets/linkedin.png)](https://linkedin.com/in/stephen-k-3a4644210)
 [![](assets/github.png)](https://github.com/Stephen-RA-King)
-[![](assets/pypi.png)](https://pypi.org/project/piptools_sync/)
+[![](assets/pypi.png)](https://pypi.org/project/piptools-sync/)
 [![](assets/www.png)](https://www.justpython.tech)
 [![](assets/email.png)](mailto:stephen.ra.king@gmail.com)
 [![](assets/cv.png)](https://www.justpython.tech/cv)
@@ -78,7 +78,7 @@ Stephen R A King : stephen.ra.king@gmail.com
 
 Distributed under the MIT license. See [license](license-url) for more information.
 
-[https://github.com/Stephen-RA-King/piptools_sync](https://github.com/Stephen-RA-King/piptools_sync)
+[https://github.com/Stephen-RA-King/piptools-sync](https://github.com/Stephen-RA-King/piptools-sync)
 
 Created with Cookiecutter template: [**cc_template**][cc_template-url] version 1.2.1
 
