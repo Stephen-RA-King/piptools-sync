@@ -24,16 +24,7 @@ repos:
         stages:
           - commit-msg
     repo: https://github.com/commitizen-tools/commitizen
-    rev: v2.29.3
-  - hooks:
-      - args:
-          - requirements/base.in
-          - requirements/production.in
-          - requirements/development.in
-          - requirements/test.in
-        id: check-pip-compile
-    repo: https://github.com/MartinThoma/check-pip-compile
-    rev: 0.1.1
+    rev: v2.29.5
   - hooks:
       - args:
           - --filter-files
@@ -54,7 +45,7 @@ repos:
           - --ignore=E800,F842,F841,W503
         id: flake8
     repo: https://github.com/pycqa/flake8
-    rev: 4.0.1
+    rev: 5.0.4
   - hooks:
       - args:
           - --py39
