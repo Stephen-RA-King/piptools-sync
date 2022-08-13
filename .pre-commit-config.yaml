@@ -26,7 +26,7 @@ repos:
         files: ^requirements/base\.(in|txt)$
       - id: pip-compile
         name: pip-compile development.in
-        args: [development.in]
+        args: [requirements/development.in]
         files: ^requirements/development\.(in|txt)$
     repo: https://github.com/jazzband/pip-tools
     rev: 6.8.0
