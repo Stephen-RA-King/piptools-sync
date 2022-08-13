@@ -282,12 +282,15 @@ if __name__ == "__main__":
     mismatch = 0
     for repo in yaml_dict:
         if (precommit_ver := yaml_dict[repo]) != (
-            piptools_ver := req_versions.get(map_db.get(repo, ""), "-")
+            piptools_ver := req_versions.get(pack := map_db.get(repo, ""), "-")
         ):
             if piptools_ver != "-":
                 mismatch += 1
-                print(f"piptools: {piptools_ver} != pre-commit: {precommit_ver}")
+                print(
+                    f"{pack:15} - piptools: {piptools_ver:10} !=     "
+                    f"pre-commit: {precommit_ver}"
+                )
     if mismatch > 0:
-        exit(1)
+        SystemExit(-1)
     else:
-        exit(0)
+        SystemExit(0)
