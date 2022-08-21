@@ -3,6 +3,8 @@ pip-tools are utilized by pre-commit
 """
 # TODO: add docstrings
 # TODO: add mypy types
+# TODO: increase indentation on yaml write
+# TODO: add logging
 
 # Core Library modules
 import json
@@ -22,7 +24,7 @@ MAPPING_FILE = SRC_DIR / "mapping.json"
 PRECOMMIT_CONFIG_FILE = ".pre-commit-config.yaml"
 PRECOMMIT_REPOS_URL = "https://pre-commit.com/all-hooks.json"
 
-# TODO: store thr following in a settings.yaml file
+# TODO: store the following in a settings.yaml file
 ROOT_REQUIREMENT = ROOT_DIR / "requirements.txt"
 REGEN_PERIOD = 604800  # one week
 UPDATE_PC_YAML_FILE = True
