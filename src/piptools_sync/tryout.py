@@ -1,6 +1,8 @@
 """A pre-commit utility plugin to verify requirement versions determined by
 pip-tools are utilized by pre-commit
 """
+# TODO: add docstrings
+# TODO: add mypy types
 
 # Core Library modules
 import json
@@ -24,7 +26,7 @@ PRECOMMIT_REPOS_URL = "https://pre-commit.com/all-hooks.json"
 ROOT_REQUIREMENT = ROOT_DIR / "requirements.txt"
 REGEN_PERIOD = 604800  # one week
 UPDATE_PC_YAML_FILE = True
-
+PRECOMMIT_FILTERS = ["python", "toml"]
 MANUAL_MAPPING = {
     "https://github.com/pre-commit/mirrors-autopep8": "autopep8",
     "https://github.com/pre-commit/mirrors-mypy": "mypy",
@@ -34,13 +36,15 @@ MANUAL_MAPPING = {
 
 
 def _utility_find_file_path(partial_path: str):
-    """Given a partial file path, find the absolute file path for the file searching
+    """Given a partial file path, find the absolute file path for the file, searching
     only from the project root.
     """
 
     result_list = sorted(Path(ROOT_DIR).glob(partial_path))
-    if len(result_list) != 1:
+    if len(result_list) == 0:
         return 0
+    elif len(result_list) > 1:
+        return 1
     else:
         return result_list[0]
 
@@ -53,21 +57,20 @@ def _utility_remove_vee(version):
 
 
 def get_precommit_repos():
-    """Get a list of repos from pre-commit.com that are relevant to python.
+    """Get a list of repos from pre-commit.com using the selected filters.
 
     data structure: {'html repo name': [ { } { } ] }
     Not used in v0.1.0
     """
     # TODO: improve the performance of this process (asyncio ?)
     pyrepos = []
-    filters = ["python", "toml"]
 
     r = requests.get(PRECOMMIT_REPOS_URL)
     data = r.json()
     for repo in data:
         sublist = [repo]
         for _, subrepo in enumerate(data[repo]):
-            if subrepo["language"] in filters:
+            if subrepo["language"] in PRECOMMIT_FILTERS:
                 sublist.append(subrepo["name"])
         if len(sublist) > 1:
             pyrepos.append(sublist)
@@ -114,7 +117,10 @@ def get_latest_pypi_repo_version(name):
 
 
 def generate_db(force=0):
-    """Generate a mapping from pre-commit repo to PyPI repo"""
+    """Generate a mapping from pre-commit repo to PyPI repo
+
+    e.g. {"https://github.com/pre-commit/pre-commit-hooks": "pre-commit-hooks",}
+    """
 
     def generate_file():
         mapping_db = {}
@@ -290,6 +296,9 @@ if __name__ == "__main__":
                     f"{pack:15} - piptools: {piptools_ver:10} !=     "
                     f"pre-commit: {precommit_ver}"
                 )
+                if UPDATE_PC_YAML_FILE is True:
+                    update_yaml(config_file, repo, piptools_ver)
+
     if mismatch > 0:
         SystemExit(-1)
     else:
