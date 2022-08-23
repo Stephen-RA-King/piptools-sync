@@ -44,5 +44,6 @@ sphinx
 sphinx-autoapi
 sphinx-rtd-theme
 tox
+tqdm
 twine
 watchdog

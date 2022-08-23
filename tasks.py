@@ -414,9 +414,11 @@ def psr(c):
 @task
 def update(c):
     """Updates the development environment"""
+    c.run("pre-commit clean")
+    c.run("pre-commit gc")
     c.run("pre-commit autoupdate")
-    c.run("pip-compile requirements/base.in")
-    c.run("pip-compile requirements/development.in")
-    c.run("pip-compile requirements/production.in")
-    c.run("pip-compile requirements/test.in")
-    c.run("pip install -r requirements/development.txt")
+    c.run("pip-compile -q -r -U --allow-unsafe requirements/base.in")
+    c.run("pip-compile -q  -r -U --allow-unsafe requirements/development.in")
+    c.run("pip-compile -q  -r -U --allow-unsafe requirements/production.in")
+    c.run("pip-compile -q  -r -U --allow-unsafe requirements/test.in")
+    c.run("pip-sync")
