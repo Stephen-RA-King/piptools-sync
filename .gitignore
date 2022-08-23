@@ -136,6 +136,5 @@ dmypy.json
 TODO.txt
 *.docx
 post_installation.py
-mapping.json
 *.css
 *.html
