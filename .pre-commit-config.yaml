@@ -26,7 +26,6 @@ repos:
 
   - repo: https://github.com/jazzband/pip-tools
     rev: 6.8.0
-    name: pip-compile base.in
     hooks:
       - id: pip-compile
         name: pip-compile base.in
