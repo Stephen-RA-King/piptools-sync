@@ -1,0 +1,10 @@
+[APP]
+ENVIRONMENT = "development"
+DEBUG = true
+
+[DATABASE]
+USERNAME = "Stephen-RA-King"
+PASSWORD = "********"
+HOST = "127.0.0.1"
+PORT = 5432
+DB = "database"
