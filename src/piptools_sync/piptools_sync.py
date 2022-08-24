@@ -5,11 +5,10 @@ import sys
 from typing import Any
 
 # Local modules
-from . import ini_config, json_config, logger, toml_config, yaml_config
+from . import logger, toml_config
 
 
 def get_config() -> tuple:
-
     """Return a configuration parameter from one of the configuration files.
 
     Returns
@@ -17,7 +16,9 @@ def get_config() -> tuple:
     tuple
         length of the tuple along with the debug setting from each config file
     """
-    configs = [ini_config, json_config, toml_config, yaml_config]
+    configs = [
+        toml_config,
+    ]
     config_result = []
     config_len = len(configs)
 
@@ -37,7 +38,6 @@ sys.excepthook = handle_exception
 
 
 def fizzbuzz(number_range: int) -> list:
-
     """Demonstrate one solution to the FizzBuzz problem.
 
     Return integers 1 to N, but print “Fizz” if an integer is divisible by 3,
@@ -73,7 +73,6 @@ def fizzbuzz(number_range: int) -> list:
 
 
 def fibonacci(number_range: int) -> list:
-
     """series of numbers in which each number is the sum of the two that precede it.
 
     Parameters
