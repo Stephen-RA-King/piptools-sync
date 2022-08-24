@@ -85,18 +85,6 @@ repos:
     repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.0.0-alpha.0
   - hooks:
-      - additional_dependencies:
-          - types-dataclasses >= 0.1.3
-          - lxml
-          - types-click
-        args:
-          - --ignore-missing-imports
-          - --disallow-untyped-defs
-        exclude: "(?x)^(\n    docs/source/conf.py|\n    cleanup.py|\n    tasks.py\n)$\n"
-        id: mypy
-    repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.971
-  - hooks:
       - args:
           - -s
           - B101,B404,B603,B607
