@@ -1,100 +1,76 @@
-#!/usr/bin/env python3
-"""Example script to demonstrate layout and testing."""
+"""A pre-commit utility plugin to verify requirement versions determined by
+pip-tools are utilized by pre-commit
+"""
+# TODO: add logging
+# TODO: add docstrings
+# TODO: add mypy types
+# TODO: create tests
+# TODO: increase indentation on yaml write
+
 # Core Library modules
-import sys
-from typing import Any
+import json
+import os
+import time
+from pathlib import Path
+from typing import Any, Union
+
+# Third party modules
+import pkg_resources
+import requests
+import yaml
+from tqdm import tqdm
 
 # Local modules
-from . import logger, toml_config
+from . import MAPPING_FILE, ROOT_DIR, logger, toml_config
+
+logger.debug(f"root directory defined as {ROOT_DIR}")
+logger.debug(f"mapping file path: {MAPPING_FILE}")
+
+PRECOMMIT_CONFIG_FILE = ".pre-commit-config.yaml"
+PRECOMMIT_REPOS_URL = "https://pre-commit.com/all-hooks.json"
+
+# TODO: store the following in a settings.yaml file
+ROOT_REQUIREMENT = ROOT_DIR / "requirements.txt"
+REGEN_PERIOD = 604800  # one week
+UPDATE_PC_YAML_FILE = True
+PRECOMMIT_FILTERS = ["python", "toml"]
+MANUAL_MAPPING = {
+    "https://github.com/pre-commit/mirrors-autopep8": "autopep8",
+    "https://github.com/pre-commit/mirrors-mypy": "mypy",
+    "https://github.com/pre-commit/mirrors-yapf": "yapf",
+    "https://github.com/FalconSocial/pre-commit-mirrors-pep257": "pep257",
+}
 
 
-def get_config() -> tuple:
-    """Return a configuration parameter from one of the configuration files.
-
-    Returns
-    -------
-    tuple
-        length of the tuple along with the debug setting from each config file
-    """
-    configs = [
-        toml_config,
-    ]
-    config_result = []
-    config_len = len(configs)
-
-    for config in configs:
-        config_result.append(bool(config["APP"]["DEBUG"]))
-    return config_len, config_result
+def load_settings():
+    config_result = [(bool(toml_config["APP"]["DEBUG"]))]
 
 
-def handle_exception(exc_type, exc_value, exc_traceback):  # type: ignore
-    if issubclass(exc_type, KeyboardInterrupt):
-        sys.__excepthook__(exc_type, exc_value, exc_traceback)
-        return
-    logger.error("Uncaught exception", exc_info=(exc_type, exc_value, exc_traceback))
+def _utility_find_file_path(partial_path: str) -> Union[Path, int]:
+    """Given a partial file path, find the absolute file path for the file.
 
-
-sys.excepthook = handle_exception
-
-
-def fizzbuzz(number_range: int) -> list:
-    """Demonstrate one solution to the FizzBuzz problem.
-
-    Return integers 1 to N, but print “Fizz” if an integer is divisible by 3,
-    “Buzz” if an integer is divisible by 5, and “FizzBuzz” if an integer is
-    divisible by both 3 and 5
+    Do a search from the project root matching a full absolute path containing
+    the partial path as a substring.
 
     Parameters
     ----------
-    number_range : int
-        The maximum number that will be used
+    partial_path : str
+        A string representing a substring of the absolute path
 
     Returns
     -------
-    list
-        The result will be returned as a list
-
-    Examples
-    --------
-    >>> fizzbuzz(20)
-    """
-    result: list[Any] = []
-    for num in range(1, number_range):
-        if num % 15 == 0:
-            result.append("FizzBuzz")
-        elif num % 5 == 0:
-            result.append("Buzz")
-        elif num % 3 == 0:
-            result.append("Fizz")
-        else:
-            result.append(num)
-    logger.debug(f"fizzbuzz result: {result}")
-    return result
-
-
-def fibonacci(number_range: int) -> list:
-    """series of numbers in which each number is the sum of the two that precede it.
-
-    Parameters
-    ----------
-    number_range : int
-        The maximum number that will be used
-
-    Returns
-    -------
-    list
-        The result will be returned as a list
-
-    Examples
-    --------
-    >>> fibonacci(20)
+    result_list: Path
+        A pathlib type path object of the full absolute path
+    0:
+        error condition indicates that no match was found.
+    1:
+        error condition indicates more than 1 match was found and is ambiguous
     """
 
-    result: list = []
-    a, b = 1, 1
-    while True:
-        if a >= number_range:
-            logger.debug(f"fibonacci result: {result}")
-            return result
-        result.append(a)
-        a, b = b, (a + b)
+    result_list = sorted(Path(ROOT_DIR).glob(partial_path))
+    if len(result_list) == 0:
+        return 0
+    elif len(result_list) > 1:
+        return 1
+    else:
+        return result_list[0]
