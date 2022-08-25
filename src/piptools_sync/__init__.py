@@ -57,6 +57,5 @@ logger = logging.getLogger("init")
 with resources.path("piptools_sync", "mapping.json") as path:
     MAPPING_FILE = path
 
-
 _toml_text = resources.read_text("piptools_sync", "config.toml")
 toml_config = toml.loads(_toml_text)
