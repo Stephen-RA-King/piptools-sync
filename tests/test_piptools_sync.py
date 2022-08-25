@@ -1,46 +1,20 @@
-#!/usr/bin/env python3
 """Tests for package cookietest.py
 To use tests either:
     1 - Use pip to install package as "editable"
             pip install -e .
     2 - Import pathmagic.py to enable tests to find the package
 """
-# Third party modules
+# Core Library modules
+import os
+from pathlib import Path
 
 # First party modules
-from piptools_sync import piptools_sync
+from piptools_sync import tryout
+
+TEST_DIR = Path(__file__).parent
 
 
-def test_get_config() -> None:
-    num, result = piptools_sync.get_config()
-    exp_result = [True for i in range(num)]
-    print(result)
-    assert result == exp_result
-
-
-def test_fizzbuzz() -> None:
-    result = piptools_sync.fizzbuzz(16)
-    print(result)
-    assert result == [
-        1,
-        2,
-        "Fizz",
-        4,
-        "Buzz",
-        "Fizz",
-        7,
-        8,
-        "Fizz",
-        "Buzz",
-        11,
-        "Fizz",
-        13,
-        14,
-        "FizzBuzz",
-    ]
-
-
-def test_fibonacci() -> None:
-    result = piptools_sync.fibonacci(10)
-    print(result)
-    assert result == [1, 1, 2, 3, 5, 8]
+def test_utility_find_file_path() -> None:
+    result = tryout._utility_find_file_path(r"requirements\development.txt")
+    assert os.path.relpath(TEST_DIR, result) == r"..\..\tests"
+    assert os.path.relpath(result, TEST_DIR) == r"..\requirements\development.txt"
