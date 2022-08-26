@@ -138,3 +138,7 @@ TODO.txt
 post_installation.py
 *.css
 *.html
+
+# temporary
+requirements.txt
+.pre-commit-config.yaml
