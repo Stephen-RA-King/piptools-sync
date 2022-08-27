@@ -127,8 +127,8 @@ def get_precommit_repos() -> list[list]:
     return pyrepos
 
 
-def get_latest_github_repo_version(url_src: str) -> Any:
-    """Given a repo URL, this function will look up the latest version from GitHub.
+def get_latest_github_repo_version(url_src: str) -> Union[str, int]:
+    """Given a repo URL, return the latest version from GitHub utilizing API.
 
     Parameters
     ----------
@@ -161,6 +161,43 @@ def get_latest_github_repo_version(url_src: str) -> Any:
             return 0
         else:
             logger.debug(f"{version} - for {url_src}")
+            return version
+    except requests.exceptions.RequestException as e:
+        raise SystemExit(e) from None
+
+
+def get_latest_pypi_repo_version(name: str) -> Union[str, int]:
+    """Given a repository name , find the latest version utilizing PyPI API.
+
+    Parameters
+    name : str
+        Supplied project name. This is not the URL.
+
+    Returns
+    version : str
+        The latest repository version.
+
+    0 :
+        Indicates the repository was not found.
+
+    Raises
+    SystemExit:
+        if requests.get() operations fails for any reason.
+    """
+
+    logger.debug("starting **** get_precommit_repos ****")
+    int_url = "https://pypi.org/pypi/<project>/json"
+    dst_url = int_url.replace("<project>", name)
+    headers = {"Accept": "application/json"}
+    try:
+        r = requests.get(dst_url, headers=headers)
+        data = r.json()
+        if data.get("message", 0) == "Not Found":
+            logger.debug(f"0 - for {name}")
+            return 0
+        else:
+            version = data["info"]["version"]
+            logger.debug(f"{version} - for {name}")
             return version
     except requests.exceptions.RequestException as e:
         raise SystemExit(e) from None
