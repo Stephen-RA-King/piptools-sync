@@ -22,6 +22,7 @@ def mock_get_precommit_repos(monkeypatch: Any) -> None:
     monkeypatch.setattr(piptools_sync, "get_precommit_repos", mock_get_precommitrepos)
 
 
+@pytest.fixture
 def mock_get_latest_github_repo_version(monkeypatch: Any) -> None:
     def mock_get_latestgithubrepoversion() -> str:
         version = "0.1.0"
@@ -31,4 +32,17 @@ def mock_get_latest_github_repo_version(monkeypatch: Any) -> None:
         piptools_sync,
         "get_latest_github_repo_version",
         mock_get_latestgithubrepoversion,
+    )
+
+
+@pytest.fixture
+def mock_get_latest_pypi_repo_version(monkeypatch: Any) -> None:
+    def mock_get_latestpypirepoversion() -> str:
+        version = "0.1.0"
+        return version
+
+    monkeypatch.setattr(
+        piptools_sync,
+        "get_latest_pypi_repo_version",
+        mock_get_latestpypirepoversion,
     )
