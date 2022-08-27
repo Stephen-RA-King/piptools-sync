@@ -257,3 +257,26 @@ def generate_db(force: int = 0) -> dict[str, str]:
     print(end - start)
 
     return mapping
+
+
+def find_yaml_config_file() -> Path:
+    """Find the '.pre-commit-config.yaml' config file in the project directory.
+
+    Returns:
+    pc_file : Path
+        Path object for the configuration file.
+
+    Raise
+    FileNotFoundError :
+        If the config file cannot be found.
+    """
+
+    logger.debug("starting **** find_yaml_config_file ****")
+    file_list_text = list(ROOT_DIR.iterdir())
+    file_list_path = [Path(i) for i in file_list_text]
+    for filepath in file_list_path:
+        if filepath.name == PRECOMMIT_CONFIG_FILE:
+            pc_file = filepath
+            logger.debug(f"found file: {pc_file}")
+            return pc_file
+    raise FileNotFoundError(f"Cannot locate '{PRECOMMIT_CONFIG_FILE}'")
