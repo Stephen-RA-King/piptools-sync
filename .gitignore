@@ -142,3 +142,4 @@ post_installation.py
 # temporary
 requirements.txt
 .pre-commit-config.yaml
+tryout.py
