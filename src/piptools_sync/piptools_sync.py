@@ -23,12 +23,8 @@ from tqdm import tqdm
 # Local modules
 from . import MAPPING_FILE, ROOT_DIR, logger, toml_config
 
-logger.debug(f"root directory defined as {ROOT_DIR}")
-logger.debug(f"mapping file path: {MAPPING_FILE}")
-
 PRECOMMIT_CONFIG_FILE = ".pre-commit-config.yaml"
 PRECOMMIT_REPOS_URL = "https://pre-commit.com/all-hooks.json"
-
 # TODO: store the following in a settings.yaml file
 ROOT_REQUIREMENT = ROOT_DIR / "requirements.txt"
 REGEN_PERIOD = 604800  # one week
@@ -40,6 +36,8 @@ MANUAL_MAPPING = {
     "https://github.com/pre-commit/mirrors-yapf": "yapf",
     "https://github.com/FalconSocial/pre-commit-mirrors-pep257": "pep257",
 }
+
+logger.debug(f"ROOT_DIR: {'':20}{ROOT_DIR}\n" f"MAPPING_FILE: {'':20}{MAPPING_FILE}\n")
 
 
 def load_settings() -> None:
@@ -67,7 +65,9 @@ def _utility_find_file_path(partial_path: str) -> Union[Path, int]:
         Error condition indicates more than 1 match was found and is ambiguous.
     """
 
+    logger.debug("starting **** _utility_find_file_path ****")
     result_list = sorted(Path(ROOT_DIR).glob(partial_path))
+    logger.debug(f"result_list: {result_list}")
     if len(result_list) == 0:
         return 0
     elif len(result_list) > 1:
@@ -86,18 +86,24 @@ def _utility_remove_vee(version: str) -> str:
 
     Returns
     -------
-    version: str
+    version_updated: str
         Version numbers as a string without a prefixing letter.
     """
 
+    logger.debug("starting **** _utility_remove_vee ****")
+    version_updated = ""
     vee, *rest = version  # type:ignore
     if vee in ["v", "V"]:  # type:ignore
-        version = "".join(rest)  # type:ignore
-    return version
+        version_updated = "".join(rest)  # type:ignore
+    logger.debug(f"{version} returned {version_updated}")
+    return version_updated
 
 
 def get_precommit_repos() -> list[list]:
     """Get a list of repos from pre-commit.com using the selected filters.
+
+    # TODO: possibly refactor data structure to dictionary at later stage with the
+        following structure dict{key: value and key: [list]} :
 
     Returns
     -------
@@ -106,6 +112,7 @@ def get_precommit_repos() -> list[list]:
         e.g. [['https://github.com/pre-commit/mirrors-mypy', 'mypy']]
     """
 
+    logger.debug("starting **** get_precommit_repos ****")
     pyrepos = []
     r = requests.get(PRECOMMIT_REPOS_URL)
     data = r.json()
@@ -116,4 +123,44 @@ def get_precommit_repos() -> list[list]:
                 sublist.append(subrepo["name"])
         if len(sublist) > 1:
             pyrepos.append(sublist)
+    logger.debug(f"Number of pre-commit hooks found: {len(pyrepos)}")
     return pyrepos
+
+
+def get_latest_github_repo_version(url_src: str) -> Any:
+    """Given a repo URL, this function will look up the latest version from GitHub.
+
+    Parameters
+    ----------
+    url_src : str
+        The url of the GitHub repository.
+
+    Returns
+    -------
+    version : str
+        the latest repository version extracted from the API.
+    0 :
+        If the version cannot be found.
+
+    Raises
+    ------
+    SystemExit:
+        if requests.get() operations fails for any reason.
+    """
+
+    logger.debug("starting **** get_latest_github_repo_version ****")
+    url_int = url_src.replace("https://github.com/", "https://api.github.com/repos/")
+    dst_url = "".join([url_int, "/releases/latest"])
+    headers = {"Accept": "application/vnd.github+json"}
+    try:
+        r = requests.get(dst_url, headers=headers)
+        data = r.json()
+        version = data.get("name", 0)
+        if not version:
+            logger.debug(f"0 - for {url_src}")
+            return 0
+        else:
+            logger.debug(f"{version} - for {url_src}")
+            return version
+    except requests.exceptions.RequestException as e:
+        raise SystemExit(e) from None
