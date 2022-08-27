@@ -201,3 +201,59 @@ def get_latest_pypi_repo_version(name: str) -> Union[str, int]:
             return version
     except requests.exceptions.RequestException as e:
         raise SystemExit(e) from None
+
+
+def generate_db(force: int = 0) -> dict[str, str]:
+    """Generate a mapping from pre-commit repo to PyPI repo
+
+    Generates a dictionary data structure:
+    key : pre-commit URL
+    value : PyPi project name
+    e.g. {"https://github.com/pre-commit/pre-commit-hooks": "pre-commit-hooks",}
+
+    Parameters
+    force : int
+        When set to 1 will force the generation of a new mapping
+
+    Returns
+    mapping : dict
+        the mapping dictionary
+    """
+
+    logger.debug("starting **** generate_db ****")
+
+    def generate_file() -> dict:
+        mapping_db = {}
+        pyrepos = get_precommit_repos()
+        for repo in tqdm(pyrepos):
+            inta_repo, *_ = repo
+            inta_repo = inta_repo.lower()
+            mapping_db[inta_repo] = ""
+            if inta_repo in MANUAL_MAPPING:
+                logger.debug("adding value from manual mapping dict")
+                mapping_db[inta_repo] = MANUAL_MAPPING[inta_repo]
+            else:
+                *_, project = inta_repo.split("/")
+                result = get_latest_pypi_repo_version(project)
+                if result != 0:
+                    logger.debug("project found on PyPI...mapping value to key")
+                    mapping_db[inta_repo] = project
+        with open(MAPPING_FILE, "w") as outfile:
+            json.dump(mapping_db, outfile)
+        return mapping_db
+
+    start = time.time()
+    if not MAPPING_FILE.exists() or force == 1 or MAPPING_FILE.stat().st_size < 5:
+        logger.debug("Generating new mapping")
+        mapping = generate_file()
+    elif int(time.time() - os.path.getmtime(MAPPING_FILE)) > REGEN_PERIOD:
+        logger.debug("mapping expired... Generating a new mapping")
+        mapping = generate_file()
+    else:
+        logger.debug("Reusing mapping")
+        with open(MAPPING_FILE) as infile:
+            mapping = json.load(infile)
+    end = time.time()
+    print(end - start)
+
+    return mapping
