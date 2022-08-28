@@ -90,13 +90,13 @@ def _utility_remove_vee(version: str) -> str:
         Version numbers as a string without a prefixing letter.
     """
 
+    old_version = version
     logger.debug("starting **** _utility_remove_vee ****")
-    version_updated = ""
     vee, *rest = version  # type:ignore
     if vee in ["v", "V"]:  # type:ignore
-        version_updated = "".join(rest)  # type:ignore
-    logger.debug(f"{version} returned {version_updated}")
-    return version_updated
+        version = "".join(rest)  # type:ignore
+    logger.debug(f"{old_version} returned {version}")
+    return version
 
 
 def get_precommit_repos() -> list[list]:
@@ -262,7 +262,7 @@ def generate_db(force: int = 0) -> dict[str, str]:
 def find_yaml_config_file() -> Path:
     """Find the '.pre-commit-config.yaml' config file in the project directory.
 
-    Returns:
+    Returns
     pc_file : Path
         Path object for the configuration file.
 
@@ -280,3 +280,61 @@ def find_yaml_config_file() -> Path:
             logger.debug(f"found file: {pc_file}")
             return pc_file
     raise FileNotFoundError(f"Cannot locate '{PRECOMMIT_CONFIG_FILE}'")
+
+
+def yaml_to_dict(yaml_file: Path) -> dict:
+    """Get a list of repositories from the pre-commit config file
+
+    yaml data structure in python is {"repos": [ { }. { }, { } ]}
+    so to get an individual repo & rev:
+    1st repo - data["repos"][0]["repo"]
+    1st rev - data["repos"][0]["rev"]
+
+    Parameters
+    yaml_file : Path
+        Pathlib.Path object to configuration file.
+
+    Returns
+    repos : dict
+        Dictionary object mapping repository name to version.
+    """
+
+    logger.debug("starting **** yaml_to_dict ****")
+    with open(yaml_file) as f:
+        yaml_contents = yaml.safe_load(f)
+    repos = {}
+    for _, repo in enumerate(yaml_contents["repos"]):
+        version = repo["rev"]
+        version = _utility_remove_vee(version)
+        repos[repo["repo"].strip().lower()] = version.strip()
+    logger.debug(f"{repos}")
+    return repos
+
+
+def update_yaml(yaml_file: Path, repo: str, version: str) -> None:
+    """update a repo in the '.pre-commit-config.yaml' file with the given version.
+
+    Parameters
+    yaml_file : Path
+        pathlib.Path object to the pre-commit config file.
+    repo : str
+        The URL string of the Repository to update.
+    version : str
+        String representation of the version to apply.
+    """
+
+    logger.debug("starting **** update_yaml ****")
+    found_index = -1
+    version = _utility_remove_vee(version)
+    repo_list = yaml_to_dict(yaml_file)
+    for index, file_repo in enumerate(repo_list):
+        if repo in file_repo:
+            found_index = index
+            break
+    if found_index == -1:
+        raise NameError(f"Repository {repo} not found in 'pre-commit-config' file")
+    with open(yaml_file) as f:
+        yaml_contents = yaml.safe_load(f)
+        yaml_contents["repos"][found_index]["rev"] = version
+    with open(yaml_file, mode="wt", encoding="utf-8") as file:
+        yaml.dump(yaml_contents, file)
