@@ -37,7 +37,9 @@ MANUAL_MAPPING = {
     "https://github.com/FalconSocial/pre-commit-mirrors-pep257": "pep257",
 }
 
-logger.debug(f"ROOT_DIR: {'':20}{ROOT_DIR}\n" f"MAPPING_FILE: {'':20}{MAPPING_FILE}\n")
+logger.debug(
+    f"\nROOT_DIR: {'':20}{ROOT_DIR}\n" f"MAPPING_FILE: {'':20}{MAPPING_FILE}\n"
+)
 
 
 def load_settings() -> None:
@@ -95,11 +97,10 @@ def _utility_remove_vee(version: str) -> str:
     """
 
     old_version = version
-    logger.debug("starting **** _utility_remove_vee ****")
     vee, *rest = version  # type:ignore
     if vee in ["v", "V"]:  # type:ignore
         version = "".join(rest)  # type:ignore
-    logger.debug(f"{old_version} returned {version}")
+        logger.debug(f"{old_version} returned {version}")
     return version
 
 
@@ -116,7 +117,6 @@ def get_precommit_repos() -> list[list]:
         e.g. [['https://github.com/pre-commit/mirrors-mypy', 'mypy']]
     """
 
-    logger.debug("starting **** get_precommit_repos ****")
     pyrepos = []
     r = requests.get(PRECOMMIT_REPOS_URL)
     data = r.json()
@@ -443,3 +443,39 @@ def get_requirement_versions(req_file: Path, req_list: list) -> dict:
                 if package in req_list:
                     req_version_list[package.strip()] = version.strip()
     return req_version_list
+
+
+def main() -> int:
+    config_file = find_yaml_config_file()
+    logger.debug(f"yaml config file: {config_file}")
+    yaml_dict = yaml_to_dict(config_file)
+    logger.debug(f"yaml converted to dict: {yaml_dict}")
+    require_file = find_requirements_file()
+    map_db = generate_db(force=0)
+    pypi_repo_list = [map_db[repo] for repo in yaml_dict if map_db.get(repo, 0) != 0]
+    logger.debug(f"PyPI repository list: {pypi_repo_list}")
+    req_versions = get_requirement_versions(require_file, pypi_repo_list)
+    logger.debug(f"Requirement Version: {req_versions}")
+
+    mismatch = 0
+    for repo in yaml_dict:
+        if (precommit_ver := yaml_dict[repo]) != (
+            piptools_ver := req_versions.get(pack := map_db.get(repo, ""), "-")
+        ):
+            if piptools_ver != "-":
+                mismatch += 1
+                logger.info(
+                    f"{pack:15} - piptools: {piptools_ver:10} !=     "
+                    f"pre-commit: {precommit_ver}"
+                )
+                if UPDATE_PC_YAML_FILE is True:
+                    update_yaml(config_file, repo, piptools_ver)
+    if mismatch > 0:
+        return 1
+    else:
+        logger.info("Success! - pre-commit is in sync with piptools")
+        return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
