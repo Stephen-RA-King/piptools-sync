@@ -26,33 +26,6 @@ repos:
     rev: v2.32.2
   - hooks:
       - args:
-          - -U
-          - requirements/base.in
-        files: ^requirements/base\.(in|txt)$
-        id: pip-compile
-        name: pip-compile base.in
-      - args:
-          - -U
-          - requirements/development.in
-        files: ^requirements/development\.(in|txt)$
-        id: pip-compile
-        name: pip-compile development.in
-      - args:
-          - -U
-          - requirements/production.in
-        files: ^requirements/production\.(in|txt)$
-        id: pip-compile
-        name: pip-compile production.in
-      - args:
-          - -U
-          - requirements/test.in
-        files: ^requirements/test\.(in|txt)$
-        id: pip-compile
-        name: pip-compile test.in
-    repo: https://github.com/jazzband/pip-tools
-    rev: 6.8.0
-  - hooks:
-      - args:
           - --filter-files
         id: isort
     repo: https://github.com/pycqa/isort
