@@ -78,7 +78,7 @@ flake8-simplify==0.19.3
         args: ["--ignore=E800,F842,F841,W503"]
 ```
 
-If we force pip-tools to use a later version of flake8 (e,g 5.0.4) by manually pinning the version in the ".in" file and recompiling it is clear pip-tools is unhappy... A Quick look at the dependancies shows why.
+If we force pip-tools to use a later version of flake8 (e,g 5.0.4) by manually pinning the version in the ".in" file and recompiling it is clear pip-tools is unhappy... A quick look at the dependencies shows why.
 
 ```shell
 Could not find a version that matches flake8!=3.2.0,<5.0.0,<6,==5.0.4,>=3.0.0,>=3.3.0,>=3.5,>=3.7,>=3.9.1,>=4.0.1 (from -r requirements\development.in (line 12))
@@ -97,8 +97,9 @@ The tools store packages in different areas on the file system. Pre-commit uses 
 It should be noted that not all pre-commit hooks are written in Python for Python, so it makes sense that it has its own cache file system independent of pip.
 Therefore, not all pre-commit repositories have an entry in PyPI. They can simply be defined by a GitHub repository URL.
 
-Lastly browsing the internet looking for a solution I came across the following issue raised under the pip-tools project (dated 24 Jun 2021).
+Lastly, browsing the internet looking for a solution I came across the following issue raised under the pip-tools project (dated 24 Jun 2021).
 The issue is still open and describes the exact same problem.
+
 https://github.com/jazzband/pip-tools/issues/1437
 
 ## Installation
