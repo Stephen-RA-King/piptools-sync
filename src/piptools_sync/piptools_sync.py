@@ -1,10 +1,7 @@
 """A pre-commit utility plugin to verify requirement versions determined by
 pip-tools are utilized by pre-commit
 """
-# TODO: add logging
-# TODO: add docstrings
-# TODO: add mypy types
-# TODO: create tests
+
 # TODO: increase indentation on yaml write
 
 # Core Library modules
@@ -12,7 +9,7 @@ import json
 import os
 import time
 from pathlib import Path
-from typing import Any, List, Union
+from typing import Any, Union
 
 # Third party modules
 import pkg_resources  # type:ignore
