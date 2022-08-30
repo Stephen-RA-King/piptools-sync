@@ -187,7 +187,7 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 
 Stephen R A King : stephen.ra.king@gmail.com
 
-Distributed under the MIT license. See [license](license-url) for more information.
+Distributed under the MIT license. See [license][license-url] for more information.
 
 [https://github.com/Stephen-RA-King/piptools-sync](https://github.com/Stephen-RA-King/piptools-sync)
 
@@ -224,7 +224,7 @@ Created with Cookiecutter template: [**cc_template**][cc_template-url] version 1
 [lgtm-quality-image]: https://img.shields.io/lgtm/grade/python/g/Stephen-RA-King/piptools-sync.svg?logo=lgtm&logoWidth=18
 [lgtm-quality-url]: https://lgtm.com/projects/g/Stephen-RA-King/piptools-sync/context:python
 [license-image]: https://img.shields.io/pypi/l/piptools-sync
-[license-url]: https://github.com/Stephen-RA-King/piptools-sync/blob/main/license
+[license-url]: https://github.com/Stephen-RA-King/piptools-sync/blob/main/LICENSE
 [mypy-image]: http://www.mypy-lang.org/static/mypy_badge.svg
 [mypy-url]: http://mypy-lang.org/
 [pip-tools-url]: https://github.com/jazzband/pip-tools/
