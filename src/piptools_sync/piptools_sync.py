@@ -2,17 +2,16 @@
 pip-tools are utilized by pre-commit
 """
 
-# TODO: increase indentation on yaml write
 
 # Core Library modules
 import json
 import os
 import time
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any, Union
 
 # Third party modules
-import pkg_resources  # type:ignore
 import requests  # type:ignore
 import yaml  # type:ignore
 from tqdm import tqdm
@@ -22,7 +21,6 @@ from . import MAPPING_FILE, ROOT_DIR, logger, toml_config
 
 PRECOMMIT_CONFIG_FILE = ".pre-commit-config.yaml"
 PRECOMMIT_REPOS_URL = "https://pre-commit.com/all-hooks.json"
-# TODO: store the following in a settings.yaml file
 ROOT_REQUIREMENT = ROOT_DIR / "requirements.txt"
 REGEN_PERIOD = 604800  # one week
 UPDATE_PC_YAML_FILE = True
@@ -406,10 +404,10 @@ def get_installed_version(package: str) -> Union[str, None]:
 
     logger.debug("starting **** get_installed_version function ****")
     try:
-        installed_version = pkg_resources.get_distribution(package).version
+        installed_version = version(package)
         logger.debug(f"package version found: {installed_version}")
         return installed_version
-    except pkg_resources.DistributionNotFound:
+    except PackageNotFoundError:
         logger.info("package version Not found")
         return None
 
