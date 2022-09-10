@@ -1,5 +1,5 @@
 - id: piptools_sync
-  name: piptools_sync
+  name: piptools-sync
   description: Automatically check pre-commit hook versions sync with pip-tools versions
   entry: piptools_sync
   require_serial: true
