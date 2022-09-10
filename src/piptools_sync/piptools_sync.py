@@ -7,7 +7,7 @@ pip-tools are utilized by pre-commit
 import json
 import os
 import time
-from importlib.metadata import PackageNotFoundError, version
+from importlib.metadata import PackageNotFoundError, version as ver
 from pathlib import Path
 from typing import Any, Union
 
@@ -22,7 +22,7 @@ from . import MAPPING_FILE, ROOT_DIR, logger, toml_config
 PRECOMMIT_CONFIG_FILE = ".pre-commit-config.yaml"
 PRECOMMIT_REPOS_URL = "https://pre-commit.com/all-hooks.json"
 ROOT_REQUIREMENT = ROOT_DIR / "requirements.txt"
-REGEN_PERIOD = 604800  # one week
+REGEN_PERIOD = 15724800  # 6 months
 UPDATE_PC_YAML_FILE = True
 PRECOMMIT_FILTERS = ["python", "toml"]
 MANUAL_MAPPING = {
@@ -38,7 +38,7 @@ logger.debug(
 
 
 def load_settings() -> None:
-    config_result = [(bool(toml_config["APP"]["DEBUG"]))]
+    config_result = [(bool(toml_config["APP"]["DEBUG"]))]  # noqa
 
 
 def _utility_find_file_path(partial_path: str) -> Union[Path, int]:
@@ -63,7 +63,7 @@ def _utility_find_file_path(partial_path: str) -> Union[Path, int]:
     """
 
     logger.debug("starting **** _utility_find_file_path ****")
-    logger.debug(f"attempting to find: {partial_path}")
+    logger.debug(f"attempting to find: '{partial_path}'")
     result_list = sorted(Path(ROOT_DIR).glob(partial_path))
     logger.debug(f"result_list: {result_list}")
     if len(result_list) == 0:
@@ -89,13 +89,17 @@ def _utility_remove_vee(version: str) -> str:
     -------
     version_updated: str
         Version numbers as a string without a prefixing letter.
+
+    Notes
+    -----
+    v3.9 introduces str.removeprefix() method. Usage with str.startswith((x, y...))
+    method possible but less succinct as removeprefix does not accept a tuple.
     """
 
-    old_version = version
     vee, *rest = version  # type:ignore
     if vee in ["v", "V"]:  # type:ignore
         version = "".join(rest)  # type:ignore
-        logger.debug(f"{old_version} returned {version}")
+        logger.debug(f"removed prefix 'v' - returned {version}")
     return version
 
 
@@ -122,6 +126,32 @@ def get_precommit_repos() -> list[list]:
                 sublist.append(subrepo["name"])
         if len(sublist) > 1:
             pyrepos.append(sublist)
+    logger.debug(f"Number of pre-commit hooks found: {len(pyrepos)}")
+    return pyrepos
+
+
+def get_precommit_repos_2() -> dict:
+    """Get a list of repos from pre-commit.com using the selected filters.
+
+    Returns
+    -------
+    pyrepos : dict
+        data structure: [['html repo name': 'str'], ['html repo name': 'str'], ... ]
+        e.g. {'https://github.com/pre-commit/mirrors-mypy': 'mypy', ...}
+    """
+
+    pyrepos = {}
+    r = requests.get(PRECOMMIT_REPOS_URL)
+    data = r.json()
+    for repo in data:
+        language = data[repo][0]["language"]
+        subrepos = len(data[repo])
+        if language in PRECOMMIT_FILTERS and subrepos > 1:
+            *_, url_path = repo.split("/")
+            pyrepos[repo] = url_path
+        elif language in PRECOMMIT_FILTERS and subrepos == 1:
+            pyrepos[repo] = data[repo][0]["id"]
+
     logger.debug(f"Number of pre-commit hooks found: {len(pyrepos)}")
     return pyrepos
 
@@ -224,6 +254,7 @@ def generate_db(force: int = 0) -> dict[str, str]:
     def generate_file() -> dict:
         mapping_db = {}
         pyrepos = get_precommit_repos()
+        logger.debug(f"List of precommit repositories: {pyrepos}")
         for repo in tqdm(pyrepos):
             inta_repo, *_ = repo
             inta_repo = inta_repo.lower()
@@ -282,9 +313,9 @@ def find_yaml_config_file() -> Path:
 
 
 def yaml_to_dict(yaml_file: Path) -> dict:
-    """Get a list of repositories from the pre-commit config file
+    """Get a list of repositories from the pre-commit config file.
 
-    yaml data structure in python is {"repos": [ { }. { }, { } ]}
+    yaml data structure in python is {"repos": [ { }, { }, { } ] }
     so to get an individual repo & rev:
     1st repo - data["repos"][0]["repo"]
     1st rev - data["repos"][0]["rev"]
@@ -336,7 +367,7 @@ def update_yaml(yaml_file: Path, repo: str, version: str) -> None:
         yaml_contents = yaml.safe_load(f)
         yaml_contents["repos"][found_index]["rev"] = version
     with open(yaml_file, mode="wt", encoding="utf-8") as file:
-        yaml.dump(yaml_contents, file)
+        yaml.dump(yaml_contents, file, sort_keys=False, indent=4)
         logger.debug(f"{repo} updated to version {version}")
 
 
@@ -400,15 +431,18 @@ def get_installed_version(package: str) -> Union[str, None]:
     Returns
     installed_version : str
         version of the package installed by pip.
+
+    None :
+        if the package is not found
     """
 
     logger.debug("starting **** get_installed_version function ****")
     try:
-        installed_version = version(package)
+        installed_version = ver(package)
         logger.debug(f"package version found: {installed_version}")
         return installed_version
     except PackageNotFoundError:
-        logger.info("package version Not found")
+        logger.info("package not found")
         return None
 
 
