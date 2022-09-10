@@ -1,7 +1,7 @@
 """Top-level package for piptools_sync."""
 # Core Library modules
 import logging.config
-from importlib import resources
+from importlib.resources import as_file, files
 from pathlib import Path
 
 # Third party modules
@@ -39,7 +39,7 @@ handlers:
 formatters:
   basic:
     style: "{"
-    format: "{levelname:s}:{name:s}:{message:s}"
+    format: "{message:s}"
   timestamp:
     style: "{"
     format: "{asctime} - {levelname} - {name} - {message}"
@@ -54,8 +54,15 @@ loggers:
 logging.config.dictConfig(yaml.safe_load(LOGGING_CONFIG))
 logger = logging.getLogger("init")
 
-with resources.path("piptools_sync", "mapping.json") as path:
-    MAPPING_FILE = path
 
-_toml_text = resources.read_text("piptools_sync", "config.toml")
-toml_config = toml.loads(_toml_text)
+source_json = files("piptools_sync").joinpath("mapping.json")
+if not source_json.is_file():
+    with as_file(source_json) as _json_file:
+        _json_file.write_text("{}")
+MAPPING_FILE = source_json
+
+
+source = files("piptools_sync").joinpath("config.toml")
+with as_file(source) as _toml_path:
+    _toml_text = _toml_path.read_text()
+    toml_config = toml.loads(_toml_text)
