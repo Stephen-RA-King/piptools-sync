@@ -162,14 +162,14 @@ Passing example.
 
 ```shell
 $ piptools_sync
-INFO:init:Success! - pre-commit is in sync with piptools
+Success! - pre-commit is in sync with piptools
 ```
 
 Failing example.
 
 ```shell
 $ piptools_sync
-INFO:init:flake8          - piptools: 4.0.1      !=     pre-commit: 5.0.4
+flake8          - piptools: 4.0.1      !=     pre-commit: 5.0.4
 ```
 
 Note: In this case piptools-sync will automatically update the pre-commit config file with pip-tools version
