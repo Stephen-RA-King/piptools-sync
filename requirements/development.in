@@ -1,5 +1,6 @@
 -r base.txt
 
+-e .
 bandit
 black
 build
