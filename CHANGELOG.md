@@ -2,6 +2,16 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.1 (2022-09-10)
+### Fix
+* Update deprecated importlib methods ([`0e5de3d`](https://github.com/Stephen-RA-King/piptools-sync/commit/0e5de3d84582a71a40be0c0a926183f2cfc77198))
+* Correct package name ([`a024189`](https://github.com/Stephen-RA-King/piptools-sync/commit/a02418995b081f2b782e4eedd0287d894077fe6f))
+
+### Documentation
+* Update readme ([`3277722`](https://github.com/Stephen-RA-King/piptools-sync/commit/3277722eb955ce4c3f735abb5051e10f62796d1b))
+* Update readme ([`c2e1d0c`](https://github.com/Stephen-RA-King/piptools-sync/commit/c2e1d0cd3923ae080f658be28ae4432d549c42a8))
+* Fix markdown hyperlink to license ([`7a3de5a`](https://github.com/Stephen-RA-King/piptools-sync/commit/7a3de5a78de5cfbabf65ee87d3dab2488e8723f8))
+
 ## v0.2.0 (2022-08-28)
 ### Feature
 * Add entry poimnt ([`9155e21`](https://github.com/Stephen-RA-King/piptools-sync/commit/9155e211225907fa0269d50ed06bbe0b4721939d))
