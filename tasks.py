@@ -351,10 +351,9 @@ def secure(c):
         "open_browser": "Open the test report in the web browser",
     },
 )
-def tests(c, open_browser=False):
+def tests(c, open_browser=True):
     """Run tests using pytest."""
     _clean_test()
-    print(TEST_DIR)
     c.run(
         f'pytest "{str(TEST_DIR)}" --cov=piptools_sync --cov-report=html'
         f" --html=pytest-report.html -ra"
