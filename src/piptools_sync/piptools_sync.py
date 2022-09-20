@@ -272,7 +272,6 @@ def generate_db(force: int = 0) -> dict[str, str]:
             json.dump(mapping_db, outfile)
         return mapping_db
 
-    start = time.time()
     if not MAPPING_FILE.exists() or force == 1 or MAPPING_FILE.stat().st_size < 5:
         logger.debug("Generating new mapping")
         mapping = generate_file()
@@ -283,8 +282,6 @@ def generate_db(force: int = 0) -> dict[str, str]:
         logger.debug("Reusing mapping")
         with open(MAPPING_FILE) as infile:
             mapping = json.load(infile)
-    end = time.time()
-    print(end - start)
 
     return mapping
 
