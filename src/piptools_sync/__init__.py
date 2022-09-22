@@ -10,7 +10,7 @@ import toml  # type: ignore
 import yaml  # type: ignore
 
 __title__ = "piptools-sync"
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 __author__ = "Stephen R A King"
 __description__ = "A piptools pre-commit version sync utility"
 __email__ = "stephen.ra.king@gmail.com"

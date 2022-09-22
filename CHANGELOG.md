@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.2 (2022-09-22)
+### Fix
+* Broken tests ([`7fa6191`](https://github.com/Stephen-RA-King/piptools-sync/commit/7fa6191d7a882d8b647bd91bb19325bbd957b3e1))
+
 ## v0.2.1 (2022-09-10)
 ### Fix
 * Update deprecated importlib methods ([`0e5de3d`](https://github.com/Stephen-RA-King/piptools-sync/commit/0e5de3d84582a71a40be0c0a926183f2cfc77198))
