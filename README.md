@@ -71,7 +71,7 @@ flake8-simplify==0.19.3
 
 ```shell
   - repo: https://github.com/pycqa/flake8
-    rev: 5.0.4
+    rev 5.0.4
     hooks:
       - id: flake8
         additional_dependencies:
@@ -117,7 +117,7 @@ I have configured it to run at every commit at the pre-commit stage of git.
 
 ```shell
   - repo: https://github.com/Stephen-RA-King/piptools-sync
-    rev: 0.2.0
+    rev: 0.3.0
     hooks:
       - id: piptools_sync
 ```

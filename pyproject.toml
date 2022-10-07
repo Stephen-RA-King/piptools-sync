@@ -56,7 +56,11 @@ html_report = "mypy-report"
 mypy_path = "typeshed/pyi:typeshed/imports"
 
 [tool.semantic_release]
-version_variable = "src/piptools_sync/__init__.py:__version__"
+version_variable = [
+    "src/piptools_sync/__init__.py:__version__",
+    "README.md/:rev:",
+    "docs/conf.py:version",
+]
 branch = "main"
 changelog_file = "CHANGELOG.md"
 build_command = "python -m build"
