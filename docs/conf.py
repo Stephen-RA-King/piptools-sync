@@ -7,7 +7,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "piptools-sync"
-version = "0.3.0"
+version = "0.3.1"
 copyright = "2022, Stephen R A King"
 author = "Stephen R A King"
 

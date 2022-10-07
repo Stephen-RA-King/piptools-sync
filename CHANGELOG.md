@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.1 (2022-10-07)
+### Fix
+* Update homepage url ([`322bea5`](https://github.com/Stephen-RA-King/piptools-sync/commit/322bea512064fca189550a2ecb735ae7373c21ad))
+
 ## v0.3.0 (2022-10-07)
 
 
