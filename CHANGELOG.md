@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v0.3.0 (2022-10-07)
+
+
 ## v0.2.2 (2022-09-22)
 ### Fix
 * Broken tests ([`7fa6191`](https://github.com/Stephen-RA-King/piptools-sync/commit/7fa6191d7a882d8b647bd91bb19325bbd957b3e1))
