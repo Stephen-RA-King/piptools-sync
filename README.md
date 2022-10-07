@@ -117,7 +117,7 @@ I have configured it to run at every commit at the pre-commit stage of git.
 
 ```shell
   - repo: https://github.com/Stephen-RA-King/piptools-sync
-    rev: 0.3.0
+    rev: 0.3.1
     hooks:
       - id: piptools_sync
 ```
