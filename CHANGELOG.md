@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.0 (2022-10-07)
+### Fix
+* Correct path for PSR version ([`7f25a18`](https://github.com/Stephen-RA-King/piptools-sync/commit/7f25a187ba6df98be5684a52b09b88f0c1037af1))
+
 ## v0.3.1 (2022-10-07)
 ### Fix
 * Update homepage url ([`322bea5`](https://github.com/Stephen-RA-King/piptools-sync/commit/322bea512064fca189550a2ecb735ae7373c21ad))
