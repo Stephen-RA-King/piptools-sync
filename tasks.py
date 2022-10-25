@@ -148,6 +148,7 @@ def _clean_test():
         ".pytest_cache",
         "htmlcov",
         ".coverage",
+        ".tox",
         "coverage.xml",
         "pytest-report.html",
     ]
