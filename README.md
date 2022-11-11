@@ -201,7 +201,7 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 [![](assets/pypi.png)](https://pypi.org/project/piptools-sync/)
 [![](assets/www.png)](https://www.justpython.tech)
 [![](assets/email.png)](mailto:stephen.ra.king@gmail.com)
-[![](assets/cv.png)](https://www.justpython.tech/cv)
+[![](assets/cv.png)](https://justpython.tech/wp-content/uploads/CV.pdf)
 
 Stephen R A King : stephen.ra.king@gmail.com
 
