@@ -353,7 +353,7 @@ def update_yaml(yaml_file: Path, repo: str, version: str) -> None:
     with open(yaml_file) as f:
         yaml_contents = yaml.safe_load(f)
         yaml_contents["repos"][found_index]["rev"] = version
-    with open(yaml_file, mode="wt", encoding="utf-8") as file:
+    with open(yaml_file, mode="w", encoding="utf-8") as file:
         yaml.dump(yaml_contents, file, sort_keys=False, indent=4)
         logger.debug(f"{repo} updated to version {version}")
 
