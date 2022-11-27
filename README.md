@@ -9,7 +9,6 @@
 [![Status][status-image]][pypi-url]
 [![Python Version][python-version-image]][pypi-url]
 [![Format][format-image]][pypi-url]
-[![Requirements][requirements-status-image]][requirements-status-url]
 [![tests][tests-image]][tests-url]
 [![Codecov][codecov-image]][codecov-url]
 [![CodeFactor][codefactor-image]][codefactor-url]
@@ -254,8 +253,6 @@ Created with Cookiecutter template: [**cc_template**][cc_template-url] version 1
 [python-version-image]: https://img.shields.io/pypi/pyversions/piptools-sync
 [readthedocs-image]: https://readthedocs.org/projects/piptools-sync/badge/?version=latest
 [readthedocs-url]: https://piptools-sync.readthedocs.io/en/latest/?badge=latest
-[requirements-status-image]: https://requires.io/github/Stephen-RA-King/piptools-sync/requirements.svg?branch=main
-[requirements-status-url]: https://requires.io/github/Stephen-RA-King/piptools-sync/requirements/?branch=main
 [status-image]: https://img.shields.io/pypi/status/piptools-sync.svg
 [tests-image]: https://github.com/Stephen-RA-King/piptools-sync/actions/workflows/tests.yml/badge.svg
 [tests-url]: https://github.com/Stephen-RA-King/piptools-sync/actions/workflows/tests.yml
