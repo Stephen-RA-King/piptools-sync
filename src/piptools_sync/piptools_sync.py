@@ -61,7 +61,6 @@ def _utility_find_file_path(partial_path: str) -> Union[Path, int]:
     1 :
         Error condition indicates more than 1 match was found and is ambiguous.
     """
-
     logger.debug("starting **** _utility_find_file_path ****")
     logger.debug(f"attempting to find: '{partial_path}'")
     result_list = sorted(Path(ROOT_DIR).glob(partial_path))
@@ -95,7 +94,6 @@ def _utility_remove_vee(version: str) -> str:
     v3.9 introduces str.removeprefix() method. Usage with str.startswith((x, y...))
     method possible but less succinct as removeprefix does not accept a tuple.
     """
-
     vee, *rest = version  # type:ignore
     if vee in ["v", "V"]:  # type:ignore
         version = "".join(rest)  # type:ignore
@@ -115,7 +113,6 @@ def get_precommit_repos() -> list[list]:
         data structure: [['html repo name': 'str'], ['html repo name': 'str'], ... ]
         e.g. [['https://github.com/pre-commit/mirrors-mypy', 'mypy']]
     """
-
     pyrepos = []
     r = requests.get(PRECOMMIT_REPOS_URL)
     data = r.json()
@@ -139,7 +136,6 @@ def get_precommit_repos_2() -> dict:
         data structure: [['html repo name': 'str'], ['html repo name': 'str'], ... ]
         e.g. {'https://github.com/pre-commit/mirrors-mypy': 'mypy', ...}
     """
-
     pyrepos = {}
     r = requests.get(PRECOMMIT_REPOS_URL)
     data = r.json()
@@ -176,7 +172,6 @@ def get_latest_github_repo_version(url_src: str) -> Union[str, int]:
     SystemExit:
         if requests.get() operations fails for any reason.
     """
-
     logger.debug("starting **** get_latest_github_repo_version ****")
     url_int = url_src.replace("https://github.com/", "https://api.github.com/repos/")
     dst_url = "".join([url_int, "/releases/latest"])
@@ -213,7 +208,6 @@ def get_latest_pypi_repo_version(name: str) -> Union[str, int]:
     SystemExit:
         if requests.get() operations fails for any reason.
     """
-
     logger.debug("starting **** get_precommit_repos ****")
     int_url = "https://pypi.org/pypi/<project>/json"
     dst_url = int_url.replace("<project>", name)
@@ -248,7 +242,6 @@ def generate_db(force: int = 0) -> dict[str, str]:
     mapping : dict
         the mapping dictionary
     """
-
     logger.debug("starting **** generate_db ****")
 
     def generate_file() -> dict:
@@ -297,7 +290,6 @@ def find_yaml_config_file() -> Path:
     FileNotFoundError :
         If the config file cannot be found.
     """
-
     logger.debug("starting **** find_yaml_config_file ****")
     file_list_text = list(ROOT_DIR.iterdir())
     file_list_path = [Path(i) for i in file_list_text]
@@ -325,7 +317,6 @@ def yaml_to_dict(yaml_file: Path) -> dict:
     repos : dict
         Dictionary object mapping repository name to version.
     """
-
     logger.debug("starting **** yaml_to_dict ****")
     with open(yaml_file) as f:
         yaml_contents = yaml.safe_load(f)
@@ -349,7 +340,6 @@ def update_yaml(yaml_file: Path, repo: str, version: str) -> None:
     version : str
         String representation of the version to apply.
     """
-
     logger.debug("starting **** update_yaml ****")
     found_index = -1
     version = _utility_remove_vee(version)
@@ -363,7 +353,7 @@ def update_yaml(yaml_file: Path, repo: str, version: str) -> None:
     with open(yaml_file) as f:
         yaml_contents = yaml.safe_load(f)
         yaml_contents["repos"][found_index]["rev"] = version
-    with open(yaml_file, mode="wt", encoding="utf-8") as file:
+    with open(yaml_file, mode="w", encoding="utf-8") as file:
         yaml.dump(yaml_contents, file, sort_keys=False, indent=4)
         logger.debug(f"{repo} updated to version {version}")
 
@@ -378,7 +368,6 @@ def find_requirements_file() -> Any:
     result : Path
         The pathlib.Path object to the derived requirement file.
     """
-
     logger.debug("starting **** find_requirements_file function ****")
     logger.debug(f"root requirement: {ROOT_REQUIREMENT}")
 
@@ -432,7 +421,6 @@ def get_installed_version(package: str) -> Union[str, None]:
     None :
         if the package is not found
     """
-
     logger.debug("starting **** get_installed_version function ****")
     try:
         installed_version = ver(package)
@@ -457,7 +445,6 @@ def get_requirement_versions(req_file: Path, req_list: list) -> dict:
         A Dictionary comprising key: package name, Value: the version
         e.g. {'click': '8.1.3'}
     """
-
     logger.debug("starting **** get_requirement_versions function ****")
     req_version_list = {}
     with open(req_file) as f:
