@@ -79,22 +79,22 @@ LOGGING_CONFIG = Template(LOGGING_CONFIG_TEMPLATE).render(
 logging.config.dictConfig(yaml.safe_load(LOGGING_CONFIG))
 logger = logging.getLogger("main")
 
-logger.debug(f"Total python files: {len(PYTHON_FILES_ALL)} ")
+logger.debug("Total python files: %s", len(PYTHON_FILES_ALL))
 for file in PYTHON_FILES_ALL:
-    logger.debug(f"{file}")
-logger.debug(f"src python files: {len(PYTHON_FILES_SRC)}")
+    logger.debug("%s", file)
+logger.debug("Total python files: %s", len(PYTHON_FILES_ALL))
 for file in PYTHON_FILES_SRC:
-    logger.debug(f"{file}")
+    logger.debug("%s", file)
 
 
 def _delete_director(items_to_delete):
     """Utility function to delete files or directories."""
     for item in items_to_delete:
         if item.is_dir():
-            logger.debug(f"Deleting Directory: {item}")
+            logger.debug("Deleting Directory: %s", item)
             shutil.rmtree(item, ignore_errors=True)
         elif item.is_file():
-            logger.debug(f"Deleting File: {item}")
+            logger.debug("Deleting File: $s", item)
             Path.unlink(item, missing_ok=True)
         else:
             raise ValueError(f"{item} is not a directory or a file")
@@ -103,13 +103,13 @@ def _delete_director(items_to_delete):
 def _finder(directory, item, exclusions):
     """Utility function to generate a Path list of files based on globs."""
     item_list = list(directory.rglob(item))
-    logger.debug(f"for {item}: Found: {item_list}")
+    logger.debug("for %s: Found: %s", item, item_list)
     for exc in exclusions:
-        logger.debug(f"removing exclusion: {exc}")
+        logger.debug("removing exclusion: %s", exc)
         if exc in item_list:
             item_list.remove(exc)
     if item_list:
-        logger.debug(f"Items to process: {item_list}")
+        logger.debug("Items to process: %s", item_list)
         _delete_director(item_list)
 
 
