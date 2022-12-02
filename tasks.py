@@ -82,7 +82,7 @@ logger = logging.getLogger("main")
 logger.debug("Total python files: %s", len(PYTHON_FILES_ALL))
 for file in PYTHON_FILES_ALL:
     logger.debug("%s", file)
-logger.debug("Total python files: %s", len(PYTHON_FILES_ALL))
+logger.debug("Total python files: %s", len(PYTHON_FILES_SRC))
 for file in PYTHON_FILES_SRC:
     logger.debug("%s", file)
 
