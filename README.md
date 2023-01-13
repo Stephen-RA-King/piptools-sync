@@ -199,7 +199,7 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 [![](assets/github.png)](https://github.com/Stephen-RA-King)
 [![](assets/pypi.png)](https://pypi.org/project/piptools-sync)
 [![](assets/www.png)](https://www.justpython.tech)
-[![](assets/email.png)](mailto:stephen.ra.king@gmail.com)
+[![](assets/email.png)](mailto:sking.github@gmail.com)
 
 Stephen R A King : stephen.ra.king@gmail.com
 
