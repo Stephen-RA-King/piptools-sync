@@ -82,7 +82,7 @@ coverage[toml]==6.4.4
     #   pytest-cov
 coverage-conditional-plugin==0.5.0
     # via -r development.in
-cryptography==38.0.4
+cryptography==39.0.1
     # via secretstorage
 debugpy==1.6.3
     # via ipykernel
