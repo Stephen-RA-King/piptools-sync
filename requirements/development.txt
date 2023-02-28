@@ -183,7 +183,7 @@ ipykernel==6.15.1
     #   myst-nb
     #   notebook
     #   qtconsole
-ipython==8.4.0
+ipython==8.10.0
     # via
     #   ipykernel
     #   ipywidgets
