@@ -248,7 +248,7 @@ lxml==4.9.1
     # via
     #   -r development.in
     #   nbconvert
-markdown-it-py==2.1.0
+markdown-it-py==2.2.0
     # via
     #   mdit-py-plugins
     #   myst-parser
