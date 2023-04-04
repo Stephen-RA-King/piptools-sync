@@ -219,8 +219,8 @@ Created with Cookiecutter template: [**cc_template**][cc_template-url] version 1
 [codecov-url]: https://app.codecov.io/gh/Stephen-RA-King/piptools-sync
 [codefactor-image]: https://www.codefactor.io/repository/github/Stephen-RA-King/piptools-sync/badge
 [codefactor-url]: https://www.codefactor.io/repository/github/Stephen-RA-King/piptools-sync
-[codeql-image]: https://github.com/Stephen-RA-King/piptools-sync/actions/workflows/codeql-analysis.yml/badge.svg
-[codeql-url]: https://github.com/Stephen-RA-King/piptools-sync/actions/workflows/codeql-analysis.yml
+[codeql-image]: https://github.com/Stephen-RA-King/piptools-sync/actions/workflows/github-code-scanning/codeql/badge.svg
+[codeql-url]: https://github.com/Stephen-RA-King/piptools-sync/actions/workflows/github-code-scanning/codeql
 [commitizen-image]: https://img.shields.io/badge/commitizen-friendly-brightgreen.svg
 [commitizen-url]: http://commitizen.github.io/cz-cli/
 [conventional-commits-image]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square
