@@ -94,7 +94,7 @@ def _delete_director(items_to_delete):
             logger.debug("Deleting Directory: %s", item)
             shutil.rmtree(item, ignore_errors=True)
         elif item.is_file():
-            logger.debug("Deleting File: $s", item)
+            logger.debug("Deleting File: %s", item)
             Path.unlink(item, missing_ok=True)
         else:
             raise ValueError(f"{item} is not a directory or a file")
