@@ -82,7 +82,7 @@ logger = logging.getLogger("main")
 logger.debug("Total python files: %s", len(PYTHON_FILES_ALL))
 for file in PYTHON_FILES_ALL:
     logger.debug("%s", file)
-logger.debug("Total python files: %s", len(PYTHON_FILES_SRC))
+logger.debug("src python files: %s", len(PYTHON_FILES_SRC))
 for file in PYTHON_FILES_SRC:
     logger.debug("%s", file)
 
@@ -103,7 +103,7 @@ def _delete_director(items_to_delete):
 def _finder(directory, item, exclusions):
     """Utility function to generate a Path list of files based on globs."""
     item_list = list(directory.rglob(item))
-    logger.debug("for %s: Found: %s", item, item_list)
+    logger.debug("for %s : Found: %s", item, item_list)
     for exc in exclusions:
         logger.debug("removing exclusion: %s", exc)
         if exc in item_list:
@@ -352,9 +352,10 @@ def secure(c):
         "open_browser": "Open the test report in the web browser",
     },
 )
-def tests(c, open_browser=True):
+def tests(c, open_browser=False):
     """Run tests using pytest."""
     _clean_test()
+    print(TEST_DIR)
     c.run(
         f'pytest "{str(TEST_DIR)}" --cov=piptools_sync --cov-report=html'
         f" --html=pytest-report.html -ra"
