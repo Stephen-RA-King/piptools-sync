@@ -62,17 +62,17 @@ def _utility_find_file_path(partial_path: str) -> Union[Path, int]:
         Error condition indicates more than 1 match was found and is ambiguous.
     """
     logger.debug("starting **** _utility_find_file_path ****")
-    logger.debug(f"attempting to find: '{partial_path}'")
+    logger.debug("attempting to find: %s", partial_path)
     result_list = sorted(Path(ROOT_DIR).glob(partial_path))
-    logger.debug(f"result_list: {result_list}")
+    logger.debug("result_list: %s", result_list)
     if len(result_list) == 0:
-        logger.debug(f"Error - no files found: {result_list}")
+        logger.debug("Error - no files found: %s", result_list)
         return 0
     elif len(result_list) > 1:
-        logger.debug(f"Error - more than one file found: {result_list}")
+        logger.debug("Error - more than one file found: %s", result_list)
         return 1
     else:
-        logger.debug(f"file found: {result_list}")
+        logger.debug("file found: %s", result_list)
         return result_list[0]
 
 
@@ -97,7 +97,7 @@ def _utility_remove_vee(version: str) -> str:
     vee, *rest = version  # type:ignore
     if vee in ["v", "V"]:  # type:ignore
         version = "".join(rest)  # type:ignore
-        logger.debug(f"removed prefix 'v' - returned {version}")
+        logger.debug("removed prefix 'v' - returned %s", version)
     return version
 
 
@@ -114,7 +114,7 @@ def get_precommit_repos() -> list[list]:
         e.g. [['https://github.com/pre-commit/mirrors-mypy', 'mypy']]
     """
     pyrepos = []
-    r = requests.get(PRECOMMIT_REPOS_URL)
+    r = requests.get(PRECOMMIT_REPOS_URL, timeout=15)
     data = r.json()
     for repo in data:
         sublist = [repo]
@@ -123,7 +123,7 @@ def get_precommit_repos() -> list[list]:
                 sublist.append(subrepo["name"])
         if len(sublist) > 1:
             pyrepos.append(sublist)
-    logger.debug(f"Number of pre-commit hooks found: {len(pyrepos)}")
+    logger.debug("Number of pre-commit hooks found: %s", len(pyrepos))
     return pyrepos
 
 
@@ -137,7 +137,7 @@ def get_precommit_repos_2() -> dict:
         e.g. {'https://github.com/pre-commit/mirrors-mypy': 'mypy', ...}
     """
     pyrepos = {}
-    r = requests.get(PRECOMMIT_REPOS_URL)
+    r = requests.get(PRECOMMIT_REPOS_URL, timeout=15)
     data = r.json()
     for repo in data:
         language = data[repo][0]["language"]
@@ -148,7 +148,7 @@ def get_precommit_repos_2() -> dict:
         elif language in PRECOMMIT_FILTERS and subrepos == 1:
             pyrepos[repo] = data[repo][0]["id"]
 
-    logger.debug(f"Number of pre-commit hooks found: {len(pyrepos)}")
+    logger.debug("Number of pre-commit hooks found: %s", len(pyrepos))
     return pyrepos
 
 
@@ -177,14 +177,14 @@ def get_latest_github_repo_version(url_src: str) -> Union[str, int]:
     dst_url = "".join([url_int, "/releases/latest"])
     headers = {"Accept": "application/vnd.github+json"}
     try:
-        r = requests.get(dst_url, headers=headers)
+        r = requests.get(dst_url, headers=headers, timeout=15)
         data = r.json()
         version = data.get("name", 0)
         if not version:
-            logger.debug(f"0 - for {url_src}")
+            logger.debug("0 - for %s", url_src)
             return 0
         else:
-            logger.debug(f"{version} - for {url_src}")
+            logger.debug("%s - for %s", version, url_src)
             return version
     except requests.exceptions.RequestException as e:
         raise SystemExit(e) from None
@@ -213,14 +213,14 @@ def get_latest_pypi_repo_version(name: str) -> Union[str, int]:
     dst_url = int_url.replace("<project>", name)
     headers = {"Accept": "application/json"}
     try:
-        r = requests.get(dst_url, headers=headers)
+        r = requests.get(dst_url, headers=headers, timeout=15)
         data = r.json()
         if data.get("message", 0) == "Not Found":
-            logger.debug(f"0 - for {name}")
+            logger.debug("0 - for %s", name)
             return 0
         else:
             version = data["info"]["version"]
-            logger.debug(f"{version} - for {name}")
+            logger.debug("%s - for %s", version, name)
             return version
     except requests.exceptions.RequestException as e:
         raise SystemExit(e) from None
@@ -247,7 +247,7 @@ def generate_db(force: int = 0) -> dict[str, str]:
     def generate_file() -> dict:
         mapping_db = {}
         pyrepos = get_precommit_repos()
-        logger.debug(f"List of precommit repositories: {pyrepos}")
+        logger.debug("List of precommit repositories: %s", pyrepos)
         for repo in tqdm(pyrepos):
             inta_repo, *_ = repo
             inta_repo = inta_repo.lower()
@@ -296,7 +296,7 @@ def find_yaml_config_file() -> Path:
     for filepath in file_list_path:
         if filepath.name == PRECOMMIT_CONFIG_FILE:
             pc_file = filepath
-            logger.debug(f"found file: {pc_file}")
+            logger.debug("found file: %s", pc_file)
             return pc_file
     raise FileNotFoundError(f"Cannot locate '{PRECOMMIT_CONFIG_FILE}'")
 
@@ -325,7 +325,7 @@ def yaml_to_dict(yaml_file: Path) -> dict:
         version = repo["rev"]
         version = _utility_remove_vee(version)
         repos[repo["repo"].strip().lower()] = version.strip()
-    logger.debug(f"{repos}")
+    logger.debug("%s", repos)
     return repos
 
 
@@ -355,7 +355,7 @@ def update_yaml(yaml_file: Path, repo: str, version: str) -> None:
         yaml_contents["repos"][found_index]["rev"] = version
     with open(yaml_file, mode="w", encoding="utf-8") as file:
         yaml.dump(yaml_contents, file, sort_keys=False, indent=4)
-        logger.debug(f"{repo} updated to version {version}")
+        logger.debug("%s updated to version %s", repo, version)
 
 
 def find_requirements_file() -> Any:
@@ -369,7 +369,7 @@ def find_requirements_file() -> Any:
         The pathlib.Path object to the derived requirement file.
     """
     logger.debug("starting **** find_requirements_file function ****")
-    logger.debug(f"root requirement: {ROOT_REQUIREMENT}")
+    logger.debug("root requirement: %s", ROOT_REQUIREMENT)
 
     def next_file(req_file: Path) -> Any:
         with open(req_file) as f:
@@ -386,7 +386,7 @@ def find_requirements_file() -> Any:
                     if next_req == 0:
                         raise FileNotFoundError("No Files found")
                     if next_req == 1:
-                        logger.debug(f"found {next_req}")
+                        logger.debug("found %s", next_req)
                         raise NameError("Ambiguous result - more than one file found")
                     return next_req, 0
                 else:
@@ -400,7 +400,7 @@ def find_requirements_file() -> Any:
         result, final = next_file(result)
     if final == 1:
         filename = "".join([result.stem, result.suffix])
-        logger.debug(f"Found requirement file: {filename}")
+        logger.debug("Found requirement file: %s", filename)
         return result
 
 
@@ -424,7 +424,7 @@ def get_installed_version(package: str) -> Union[str, None]:
     logger.debug("starting **** get_installed_version function ****")
     try:
         installed_version = ver(package)
-        logger.debug(f"package version found: {installed_version}")
+        logger.debug("package version found: %s", installed_version)
         return installed_version
     except PackageNotFoundError:
         logger.info("package not found")
@@ -460,15 +460,15 @@ def get_requirement_versions(req_file: Path, req_list: list) -> dict:
 
 def main() -> int:
     config_file = find_yaml_config_file()
-    logger.debug(f"yaml config file: {config_file}")
+    logger.debug("yaml config file: %s", config_file)
     yaml_dict = yaml_to_dict(config_file)
-    logger.debug(f"yaml converted to dict: {yaml_dict}")
+    logger.debug("yaml converted to dict: %s", yaml_dict)
     require_file = find_requirements_file()
     map_db = generate_db(force=0)
     pypi_repo_list = [map_db[repo] for repo in yaml_dict if map_db.get(repo, 0) != 0]
-    logger.debug(f"PyPI repository list: {pypi_repo_list}")
+    logger.debug("PyPI repository list: %s", pypi_repo_list)
     req_versions = get_requirement_versions(require_file, pypi_repo_list)
-    logger.debug(f"Requirement Version: {req_versions}")
+    logger.debug("Requirement Version: %s", req_versions)
 
     mismatch = 0
     for repo in yaml_dict:
