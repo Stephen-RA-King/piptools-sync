@@ -68,7 +68,7 @@ repos:
         exclude: "(?x)^(\n    docs/source/conf.py|\n    cleanup.py|\n    tasks.py\n)$\n"
         id: mypy
     repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.1.1
+    rev: v1.2.0
   - hooks:
       - args:
           - -s

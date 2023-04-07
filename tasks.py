@@ -277,7 +277,6 @@ def lint_flake8(c, open_browser=False, all_files=False):
     else:
         c.run(f"flake8 --format=html --htmldir=flake-report {PYTHON_FILES_SRC_STR}")
     if open_browser:
-        # report_path = (ROOT_DIR / "flake-report" / "index.html").absolute().as_uri()
         report_path = "".join(['"', str(ROOT_DIR / "flake-report" / "index.html"), '"'])
         webbrowser.open(report_path)
 
