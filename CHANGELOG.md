@@ -29,7 +29,7 @@
 
 ## v0.2.0 (2022-08-28)
 ### Feature
-* Add entry poimnt ([`9155e21`](https://github.com/Stephen-RA-King/piptools-sync/commit/9155e211225907fa0269d50ed06bbe0b4721939d))
+* Add entry point ([`9155e21`](https://github.com/Stephen-RA-King/piptools-sync/commit/9155e211225907fa0269d50ed06bbe0b4721939d))
 * Add get_requirement_versions function ([`32c2154`](https://github.com/Stephen-RA-King/piptools-sync/commit/32c2154405f092332420746c4e0d9338770aabd7))
 * Add yaml_to_dict function ([`ac855aa`](https://github.com/Stephen-RA-King/piptools-sync/commit/ac855aa1d9417856d4cc5bae5e001c87a076390d))
 * Add find_yaml_config_file function ([`d4a0500`](https://github.com/Stephen-RA-King/piptools-sync/commit/d4a0500774b7208a1276f8aefd4013d8e7b544f6))
