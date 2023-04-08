@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.2 (2023-04-08)
+### Documentation
+* Fix spelling ([`156aeb5`](https://github.com/Stephen-RA-King/piptools-sync/commit/156aeb5dc43958e9d250a5f434271efee7d1404f))
+
 ## v1.0.0 (2022-10-07)
 ### Fix
 * Correct path for PSR version ([`7f25a18`](https://github.com/Stephen-RA-King/piptools-sync/commit/7f25a187ba6df98be5684a52b09b88f0c1037af1))
