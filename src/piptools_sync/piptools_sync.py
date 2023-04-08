@@ -2,7 +2,6 @@
 pip-tools are utilized by pre-commit
 """
 
-
 # Core Library modules
 import json
 import os
@@ -32,13 +31,12 @@ MANUAL_MAPPING = {
     "https://github.com/FalconSocial/pre-commit-mirrors-pep257": "pep257",
 }
 
-logger.debug(
-    f"\nROOT_DIR: {'':20}{ROOT_DIR}\n" f"MAPPING_FILE: {'':20}{MAPPING_FILE}\n"
-)
-
 
 def load_settings() -> None:
-    config_result = [(bool(toml_config["APP"]["DEBUG"]))]  # noqa
+    """Get the configuration settings from the toml file"""
+    debug_config = [(bool(toml_config["APP"]["DEBUG"]))]  # noqa
+    if not debug_config:
+        logger.disabled = True
 
 
 def _utility_find_file_path(partial_path: str) -> Union[Path, int]:
@@ -245,6 +243,7 @@ def generate_db(force: int = 0) -> dict[str, str]:
     logger.debug("starting **** generate_db ****")
 
     def generate_file() -> dict:
+        """Create the mapping dictionary is it does not exist or is out of date"""
         mapping_db = {}
         pyrepos = get_precommit_repos()
         logger.debug("List of precommit repositories: %s", pyrepos)
@@ -273,7 +272,7 @@ def generate_db(force: int = 0) -> dict[str, str]:
         mapping = generate_file()
     else:
         logger.debug("Reusing mapping")
-        with open(MAPPING_FILE) as infile:
+        with open(MAPPING_FILE) as infile:  # type: ignore
             mapping = json.load(infile)
 
     return mapping
@@ -459,6 +458,10 @@ def get_requirement_versions(req_file: Path, req_list: list) -> dict:
 
 
 def main() -> int:
+    load_settings()
+    logger.debug(
+        f"\nROOT_DIR: {'':20}{ROOT_DIR}\n" f"MAPPING_FILE: {'':20}{MAPPING_FILE}\n"
+    )
     config_file = find_yaml_config_file()
     logger.debug("yaml config file: %s", config_file)
     yaml_dict = yaml_to_dict(config_file)
