@@ -177,9 +177,14 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 
 ---
 
-### - [**Read the Docs**](https://piptools-sync.readthedocs.io/en/latest/)
+[**Read the Docs**](https://piptools-sync.readthedocs.io/en/latest/?)
 
-### - [**Wiki**](https://github.com/Stephen-RA-King/piptools-sync/wiki)
+- [**Example Usage**](https://piptools-sync.readthedocs.io/en/latest/example.html)
+- [**Credits**](https://piptools-sync.readthedocs.io/en/latest/example.html)
+- [**Changelog**](https://piptools-sync.readthedocs.io/en/latest/changelog.html)
+- [**API Reference**](https://piptools-sync.readthedocs.io/en/latest/autoapi/index.html)
+
+- [**Wiki**](https://github.com/Stephen-RA-King/piptools-sync/wiki)
 
 ## Future Enhancements
 
@@ -199,11 +204,9 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 [![](assets/www.png)](https://www.justpython.tech)
 [![](assets/email.png)](mailto:sking.github@gmail.com)
 
-Stephen R A King : stephen.ra.king@gmail.com
+Stephen R A King : sking.github@gmail.com
 
-Distributed under the MIT license. See [license][license-url] for more information.
-
-[https://github.com/Stephen-RA-King/piptools-sync](https://github.com/Stephen-RA-King/piptools-sync)
+Distributed under the MIT license. See [![][license-image]][license-url] for more information.
 
 Created with Cookiecutter template: [**cc_template**][cc_template-url] version 1.2.1
 
