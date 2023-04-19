@@ -13,7 +13,7 @@ __title__ = "piptools-sync"
 __version__ = "1.0.2"
 __author__ = "Stephen R A King"
 __description__ = "A piptools pre-commit version sync utility"
-__email__ = "stephen.ra.king@gmail.com"
+__email__ = "sking.github@gmail.com"
 __license__ = "MIT"
 __copyright__ = "Copyright 2022 Stephen R A King"
 

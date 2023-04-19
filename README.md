@@ -2,7 +2,7 @@
 
 ---
 
-> A pre-commit plugin to align pre-commit repository versions with those derived by pip-tools..
+_**A pre-commit plugin to align pre-commit repository versions with those derived by pip-tools.**_
 
 [![PyPI][pypi-image]][pypi-url]
 [![Downloads][downloads-image]][downloads-url]
@@ -184,7 +184,7 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 - [**Changelog**](https://piptools-sync.readthedocs.io/en/latest/changelog.html)
 - [**API Reference**](https://piptools-sync.readthedocs.io/en/latest/autoapi/index.html)
 
-- [**Wiki**](https://github.com/Stephen-RA-King/piptools-sync/wiki)
+[**Wiki**](https://github.com/Stephen-RA-King/piptools-sync/wiki)
 
 ## Future Enhancements
 
