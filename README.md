@@ -1,4 +1,4 @@
-# piptools-sync
+# Piptools-sync
 
 ---
 
@@ -204,7 +204,7 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 [![](assets/www.png)](https://www.justpython.tech)
 [![](assets/email.png)](mailto:sking.github@gmail.com)
 
-Stephen R A King : sking.github@gmail.com
+Stephen R A King : [sking.github@gmail.com](mailto:sking.github@gmail.com)
 
 Distributed under the MIT license. See [![][license-image]][license-url] for more information.
 
