@@ -2,6 +2,17 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.3 (2023-04-21)
+### Fix
+* Shebang for version 3 env ([`b1442d8`](https://github.com/Stephen-RA-King/piptools-sync/commit/b1442d88028386ffacdba39dfe5ae04c30ac534d))
+
+### Documentation
+* Update email link ([`cf67f5f`](https://github.com/Stephen-RA-King/piptools-sync/commit/cf67f5f16c366f0567c4d90667b77cb4ffe9ad34))
+* Update author email ([`9cfd29f`](https://github.com/Stephen-RA-King/piptools-sync/commit/9cfd29fd3e845b16e55b6a0c8eb4f9963ee6bd18))
+* Rename base cookiecutter name ([`7254956`](https://github.com/Stephen-RA-King/piptools-sync/commit/725495639051e3c5f94d9871bb6a888675f73da9))
+* Update meta ([`642778b`](https://github.com/Stephen-RA-King/piptools-sync/commit/642778b1c0c6c7fc482b88c3045359d1feaffd0a))
+* Add pre-commit.ci badge ([`b65ae6c`](https://github.com/Stephen-RA-King/piptools-sync/commit/b65ae6cbba56ad1c6e7fefe32c7b4ce99737c507))
+
 ## v1.0.2 (2023-04-08)
 ### Documentation
 * Fix spelling ([`156aeb5`](https://github.com/Stephen-RA-King/piptools-sync/commit/156aeb5dc43958e9d250a5f434271efee7d1404f))
