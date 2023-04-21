@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """A pre-commit utility plugin to verify requirement versions determined by
 pip-tools are utilized by pre-commit
 """

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Tasks for maintaining the project.
 

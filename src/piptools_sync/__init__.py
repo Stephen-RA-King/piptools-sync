@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """Top-level package for piptools_sync."""
 # Core Library modules
 import logging.config
