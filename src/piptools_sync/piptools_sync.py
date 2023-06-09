@@ -322,6 +322,8 @@ def yaml_to_dict(yaml_file: Path) -> dict:
         yaml_contents = yaml.safe_load(f)
     repos = {}
     for _, repo in enumerate(yaml_contents["repos"]):
+        if repo["repo"] in ("local", "meta"):
+            continue
         version = repo["rev"]
         version = _utility_remove_vee(version)
         repos[repo["repo"].strip().lower()] = version.strip()
