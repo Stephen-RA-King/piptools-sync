@@ -3,7 +3,6 @@
 bandit
 black
 build
-
 python-semantic-release
 colorama
 commitizen
@@ -31,10 +30,11 @@ pre-commit
 pytest
 pytest-cov
 pytest-html
-pytest-tldr
-pytest-xdist
+pytest-metadata
+pytest-mock
 pytest-randomly
-pytest-clarity
+pytest-repeat
+pytest-timeout
 pynacl
 pyyaml
 requests
@@ -49,4 +49,8 @@ sphinx-rtd-theme
 tox
 tqdm
 twine
+types-PyYAML
+types-html5lib
+types-requests
+types-urllib3
 watchdog
