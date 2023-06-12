@@ -8,15 +8,13 @@ _**A pre-commit plugin to align pre-commit repository versions with those derive
 [![Downloads][downloads-image]][downloads-url]
 [![Status][status-image]][pypi-url]
 [![Python Version][python-version-image]][pypi-url]
-[![Format][format-image]][pypi-url]
 [![tests][tests-image]][tests-url]
 [![Codecov][codecov-image]][codecov-url]
-[![pre-commit.ci][pre-commit.ci-image]][pre-commit.ci-url]
+[![CodeQl][codeql-image]][codeql-url]
+[![pre-commit.ci status][pre-commit.ci-image]][pre-commit.ci-url]
+[![readthedocs][readthedocs-image]][readthedocs-url]
 [![CodeFactor][codefactor-image]][codefactor-url]
 [![Codeclimate][codeclimate-image]][codeclimate-url]
-[![CodeQl][codeql-image]][codeql-url]
-[![readthedocs][readthedocs-image]][readthedocs-url]
-[![pre-commit][pre-commit-image]][pre-commit-url]
 [![Imports: isort][isort-image]][isort-url]
 [![Code style: black][black-image]][black-url]
 [![Checked with mypy][mypy-image]][mypy-url]
@@ -49,7 +47,7 @@ The pre-commit autoupdate command just updates the "rev" for the "repo" in the .
 
 The following example displays the way flake8 and a few plugins are configured by the two tools :
 
-- pip-tools (via requirements.txt)
+-   pip-tools (via requirements.txt)
 
 ```shell
 flake8==4.0.1
@@ -64,7 +62,7 @@ flake8-simplify==0.19.3
     # via ...
 ```
 
-- pre-commit (via .pre-commit-config.yaml)
+-   pre-commit (via .pre-commit-config.yaml)
 
 ```shell
   - repo: https://github.com/pycqa/flake8
@@ -179,10 +177,10 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 
 [**Read the Docs**](https://piptools-sync.readthedocs.io/en/latest/?)
 
-- [**Example Usage**](https://piptools-sync.readthedocs.io/en/latest/example.html)
-- [**Credits**](https://piptools-sync.readthedocs.io/en/latest/example.html)
-- [**Changelog**](https://piptools-sync.readthedocs.io/en/latest/changelog.html)
-- [**API Reference**](https://piptools-sync.readthedocs.io/en/latest/autoapi/index.html)
+-   [**Example Usage**](https://piptools-sync.readthedocs.io/en/latest/example.html)
+-   [**Credits**](https://piptools-sync.readthedocs.io/en/latest/example.html)
+-   [**Changelog**](https://piptools-sync.readthedocs.io/en/latest/changelog.html)
+-   [**API Reference**](https://piptools-sync.readthedocs.io/en/latest/autoapi/index.html)
 
 [**Wiki**](https://github.com/Stephen-RA-King/piptools-sync/wiki)
 
@@ -190,9 +188,9 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 
 ---
 
-- Move some global variables into a separate settings file (toml).
-- Settings configurable from the command line (and therefore configurable from the pre-commit.yaml file).
-- Improve web request performance with asyncio / aiohttp libraries.
+-   Move some global variables into a separate settings file (toml).
+-   Settings configurable from the command line (and therefore configurable from the pre-commit.yaml file).
+-   Improve web request performance with asyncio / aiohttp libraries.
 
 ## Meta
 
