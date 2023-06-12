@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
-"""A pre-commit utility plugin to verify requirement versions determined by
-pip-tools are utilized by pre-commit
-"""
+"""A pre-commit plugin to sync versions from pip-tools to pre-commit."""
 
 # Core Library modules
 import json
 import os
 import time
 from importlib.metadata import PackageNotFoundError, version as ver
+from importlib.resources import as_file
 from pathlib import Path
 from typing import Any, Union
 
 # Third party modules
-import requests  # type:ignore
-import yaml  # type:ignore
+import requests
+import yaml
 from tqdm import tqdm
 
 # Local modules
@@ -34,7 +33,7 @@ MANUAL_MAPPING = {
 
 
 def load_settings() -> None:
-    """Get the configuration settings from the toml file"""
+    """Get the configuration settings from the toml file."""
     debug_config = [(bool(toml_config["APP"]["DEBUG"]))]  # noqa
     if not debug_config:
         logger.disabled = True
@@ -193,10 +192,12 @@ def get_latest_pypi_repo_version(name: str) -> Union[str, int]:
     """Given a repository name , find the latest version utilizing PyPI API.
 
     Parameters
+    ----------
     name : str
         Supplied project name. This is not the URL.
 
     Returns
+    -------
     version : str
         The latest repository version.
 
@@ -204,6 +205,7 @@ def get_latest_pypi_repo_version(name: str) -> Union[str, int]:
         Indicates the repository was not found.
 
     Raises
+    ------
     SystemExit:
         if requests.get() operations fails for any reason.
     """
@@ -226,7 +228,7 @@ def get_latest_pypi_repo_version(name: str) -> Union[str, int]:
 
 
 def generate_db(force: int = 0) -> dict[str, str]:
-    """Generate a mapping from pre-commit repo to PyPI repo
+    """Generate a mapping from pre-commit repo to PyPI repo.
 
     Generates a dictionary data structure:
     key : pre-commit URL
@@ -234,17 +236,19 @@ def generate_db(force: int = 0) -> dict[str, str]:
     e.g. {"https://github.com/pre-commit/pre-commit-hooks": "pre-commit-hooks",}
 
     Parameters
+    ----------
     force : int
         When set to 1 will force the generation of a new mapping
 
     Returns
+    -------
     mapping : dict
         the mapping dictionary
     """
     logger.debug("starting **** generate_db ****")
 
     def generate_file() -> dict:
-        """Create the mapping dictionary is it does not exist or is out of date"""
+        """Create the mapping dictionary is it does not exist or is out of date."""
         mapping_db = {}
         pyrepos = get_precommit_repos()
         logger.debug("List of precommit repositories: %s", pyrepos)
@@ -261,21 +265,20 @@ def generate_db(force: int = 0) -> dict[str, str]:
                 if result != 0:
                     logger.debug("project found on PyPI...mapping value to key")
                     mapping_db[inta_repo] = project
-        with open(MAPPING_FILE, "w") as outfile:
+        with MAPPING_FILE.open("w") as outfile:
             json.dump(mapping_db, outfile)
         return mapping_db
 
-    if not MAPPING_FILE.exists() or force == 1 or MAPPING_FILE.stat().st_size < 5:
-        logger.debug("Generating new mapping")
-        mapping = generate_file()
-    elif int(time.time() - os.path.getmtime(MAPPING_FILE)) > REGEN_PERIOD:
-        logger.debug("mapping expired... Generating a new mapping")
-        mapping = generate_file()
-    else:
-        logger.debug("Reusing mapping")
-        with open(MAPPING_FILE) as infile:  # type: ignore
-            mapping = json.load(infile)
-
+    with as_file(MAPPING_FILE) as mapping_file:
+        if not mapping_file.exists() or force == 1 or mapping_file.stat().st_size < 5:
+            logger.debug("Generating new mapping")
+            mapping = generate_file()
+        elif int(time.time() - os.path.getmtime(mapping_file)) > REGEN_PERIOD:
+            logger.debug("mapping expired... Generating a new mapping")
+            mapping = generate_file()
+        else:
+            logger.debug("Reusing mapping")
+            mapping = json.loads(MAPPING_FILE.read_text(encoding="utf-8"))
     return mapping
 
 
@@ -283,10 +286,12 @@ def find_yaml_config_file() -> Path:
     """Find the '.pre-commit-config.yaml' config file in the project directory.
 
     Returns
+    -------
     pc_file : Path
         Path object for the configuration file.
 
-    Raise
+    Raises
+    ------
     FileNotFoundError :
         If the config file cannot be found.
     """
@@ -310,10 +315,12 @@ def yaml_to_dict(yaml_file: Path) -> dict:
     1st rev - data["repos"][0]["rev"]
 
     Parameters
+    ----------
     yaml_file : Path
         Pathlib.Path object to configuration file.
 
     Returns
+    -------
     repos : dict
         Dictionary object mapping repository name to version.
     """
@@ -332,9 +339,10 @@ def yaml_to_dict(yaml_file: Path) -> dict:
 
 
 def update_yaml(yaml_file: Path, repo: str, version: str) -> None:
-    """update a repo in the '.pre-commit-config.yaml' file with the given version.
+    """Update a repo in the '.pre-commit-config.yaml' file with the given version.
 
     Parameters
+    ----------
     yaml_file : Path
         pathlib.Path object to the pre-commit config file.
     repo : str
@@ -367,6 +375,7 @@ def find_requirements_file() -> Any:
     requirements file is a pip-tools generated file.
 
     Returns
+    -------
     result : Path
         The pathlib.Path object to the derived requirement file.
     """
@@ -413,10 +422,12 @@ def get_installed_version(package: str) -> Union[str, None]:
     requirements file or the pre-commit-config.yaml file
 
     Parameters
+    ----------
     package : str
         The name of the installed package.
 
     Returns
+    -------
     installed_version : str
         version of the package installed by pip.
 
@@ -437,12 +448,14 @@ def get_requirement_versions(req_file: Path, req_list: list) -> dict:
     """Get the repo version from the requirements file.
 
     Parameters
+    ----------
     req_file : Path
         pathlib.Path object for the derived requirements file.
     req_list : list
         A list comprising packages that need versions.
 
     Returns
+    -------
     req_version_list : dict
         A Dictionary comprising key: package name, Value: the version
         e.g. {'click': '8.1.3'}
