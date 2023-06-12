@@ -11,7 +11,7 @@ import webbrowser
 from pathlib import Path
 
 # Third party modules
-import yaml  # type: ignore
+import yaml
 from invoke import call, task
 from jinja2 import Template
 
@@ -146,14 +146,19 @@ def _clean_build():
 def _clean_test():
     """Clean up test artifacts."""
     patterns = [
+        "assets",
+        "coverage",
+        "mypy",
         ".pytest_cache",
         "htmlcov",
         ".coverage",
         ".tox",
         "coverage.xml",
-        "pytest-report.html",
+        "coverage.html",
+        "pytest.html",
+        "coverage.html",
     ]
-    excludes = []
+    excludes = [ROOT_DIR / "assets", ROOT_DIR / "docs" / "assets"]
     for pattern in patterns:
         _finder(ROOT_DIR, pattern, excludes)
 
