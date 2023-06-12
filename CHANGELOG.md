@@ -2,6 +2,15 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.4 (2023-06-12)
+### Fix
+* Correct use of importlib traversables ([`210cfa5`](https://github.com/Stephen-RA-King/piptools-sync/commit/210cfa5851cf88e971506eeda98a30d5edc12050))
+
+### Documentation
+* Reorder & remove some badges ([`9480988`](https://github.com/Stephen-RA-King/piptools-sync/commit/9480988bfa7de3a8e1bc4035804c964f751a9c2f))
+* Minor updates ([`d02e30a`](https://github.com/Stephen-RA-King/piptools-sync/commit/d02e30af50be1fa5c5f4bffc4aa405fefc77bd24))
+* Add update github support files ([`11aa75e`](https://github.com/Stephen-RA-King/piptools-sync/commit/11aa75e49c96adeb38d626c892c590441f54bc17))
+
 ## v1.0.3 (2023-04-21)
 ### Fix
 * Shebang for version 3 env ([`b1442d8`](https://github.com/Stephen-RA-King/piptools-sync/commit/b1442d88028386ffacdba39dfe5ae04c30ac534d))
