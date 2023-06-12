@@ -50,6 +50,8 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+*.css
+*.html
 .hypothesis/
 .pytest_cache/
 
@@ -136,10 +138,8 @@ dmypy.json
 TODO.txt
 *.docx
 post_installation.py
-*.css
-*.html
+
 *.bak
 
 # temporary
-tryout.py
-tryout2.py
+tryout*.*
