@@ -208,6 +208,8 @@ Distributed under the MIT license. See [![][license-image]][license-url] for mor
 
 Created with Cookiecutter template: [**pydough**][pydough-url] version 1.2.1
 
+[![DOI](https://zenodo.org/badge/520581946.svg)](https://zenodo.org/badge/latestdoi/520581946)
+
 <!-- Markdown link & img dfn's -->
 
 [bandit-image]: https://img.shields.io/badge/security-bandit-yellow.svg
