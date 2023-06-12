@@ -7,8 +7,8 @@ from pathlib import Path
 
 # Third party modules
 import git
-import toml  # type: ignore
-import yaml  # type: ignore
+import toml
+import yaml
 
 __title__ = "piptools-sync"
 __version__ = "1.0.3"
