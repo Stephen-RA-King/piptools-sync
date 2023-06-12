@@ -118,8 +118,6 @@ eradicate==2.2.0
     # via flake8-eradicate
 exceptiongroup==1.1.0
     # via pytest
-execnet==1.9.0
-    # via pytest-xdist
 executing==1.2.0
     # via stack-data
 fastjsonschema==2.16.3
@@ -287,7 +285,6 @@ markdown-it-py==2.2.0
     # via
     #   mdit-py-plugins
     #   myst-parser
-    #   rich
 markupsafe==2.1.2
     # via
     #   jinja2
@@ -389,8 +386,6 @@ pluggy==1.0.0
     # via
     #   pytest
     #   tox
-pprintpp==0.4.0
-    # via pytest-clarity
 pre-commit==3.1.1
     # via -r development.in
 prometheus-client==0.16.0
@@ -425,7 +420,6 @@ pygments==2.14.0
     #   nbconvert
     #   qtconsole
     #   readme-renderer
-    #   rich
     #   sphinx
 pynacl==1.5.0
     # via -r development.in
@@ -438,26 +432,28 @@ pyrsistent==0.19.3
 pytest==7.2.2
     # via
     #   -r development.in
-    #   pytest-clarity
     #   pytest-cov
     #   pytest-html
     #   pytest-metadata
+    #   pytest-mock
     #   pytest-randomly
-    #   pytest-tldr
-    #   pytest-xdist
-pytest-clarity==1.0.1
-    # via -r development.in
+    #   pytest-repeat
+    #   pytest-timeout
 pytest-cov==4.0.0
     # via -r development.in
 pytest-html==3.2.0
     # via -r development.in
 pytest-metadata==2.0.4
-    # via pytest-html
+    # via
+    #   -r development.in
+    #   pytest-html
+pytest-mock==3.10.0
+    # via -r development.in
 pytest-randomly==3.12.0
     # via -r development.in
-pytest-tldr==0.2.5
+pytest-repeat==0.9.1
     # via -r development.in
-pytest-xdist==3.2.0
+pytest-timeout==2.1.0
     # via -r development.in
 python-dateutil==2.8.2
     # via
@@ -528,8 +524,6 @@ rfc3986-validator==0.1.1
     # via
     #   jsonschema
     #   jupyter-events
-rich==13.3.1
-    # via pytest-clarity
 semver==2.13.0
     # via python-semantic-release
 send2trash==1.8.0
@@ -646,10 +640,26 @@ twine==3.8.0
     # via
     #   -r development.in
     #   python-semantic-release
+types-beautifulsoup4==4.12.0.5
+    # via -r development.in
+types-click==7.1.8
+    # via -r development.in
+types-html5lib==1.1.11.14
+    # via
+    #   -r development.in
+    #   types-beautifulsoup4
+types-python-dateutil==2.8.19.13
+    # via -r development.in
+types-pyyaml==6.0.12.10
+    # via -r development.in
 types-requests==2.28.11.15
     # via -r development.in
+types-toml==0.10.8.6
+    # via -r development.in
 types-urllib3==1.26.25.8
-    # via types-requests
+    # via
+    #   -r development.in
+    #   types-requests
 typing-extensions==4.5.0
     # via
     #   astroid
