@@ -9,11 +9,14 @@ build-backend = "setuptools.build_meta"
 [tool.black]
 line-length = 88
 
-[tool.pytest.ini_options]
-# https://docs.pytest.org/en/6.2.x/reference.html?highlight=minversion#configuration-options
-minversion = "6.0"
-testpaths = [
-    "tests",
+[tool.cruft]
+skip = [
+    "tests/",
+    "src/",
+    "*/header.png",
+    ".pypirc",
+    "CHANGELOG.md",
+    "setup.cfg"
 ]
 
 [tool.isort]
@@ -52,8 +55,14 @@ warn_unused_configs = true
 disallow_untyped_calls = false
 disallow_incomplete_defs = true
 follow_imports = "skip"
-html_report = "mypy-report"
+html_report = "reports/mypy"
+cache_dir = 'cache/.mypy_cache'
 mypy_path = "typeshed/pyi:typeshed/imports"
+exclude = [
+    '^tests/[\w]*.py$',
+    '^tools/[\w]*.py$',
+    '^tasks.py$'
+]
 
 [tool.semantic_release]
 version_variable = [
