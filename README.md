@@ -258,6 +258,7 @@ Created with Cookiecutter template: [**pydough**][pydough-url] version 1.2.1
 [pydough-image]: https://img.shields.io/badge/pydough-2023-orange
 [pydough-url]: https://github.com/Stephen-RA-King/pydough
 [pypi-image]: https://img.shields.io/pypi/v/piptools-sync.svg
+[pypi-url]: https://pypi.org/project/piptools-sync/
 [python-version-image]: https://img.shields.io/pypi/pyversions/piptools-sync
 [readthedocs-image]: https://readthedocs.org/projects/piptools-sync/badge/?version=latest
 [readthedocs-url]: https://piptools-sync.readthedocs.io/en/latest/?badge=latest
