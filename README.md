@@ -209,9 +209,9 @@ Stephen R A King : [sking.github@gmail.com](mailto:sking.github@gmail.com)
 
 Distributed under the MIT license. See [![][license-image]][license-url] for more information.
 
-Created with Cookiecutter template: [**pydough**][pydough-url] version 1.2.1
+Created with Cookiecutter template: [![pydough][pydough-image]][pydough-url] version 1.2.1
 
-[![DOI](https://zenodo.org/badge/520581946.svg)](https://zenodo.org/badge/latestdoi/520581946)
+Digital Object Identifier: [![DOI](https://zenodo.org/badge/520581946.svg)](https://zenodo.org/badge/latestdoi/520581946)
 
 <!-- Markdown link & img dfn's -->
 
