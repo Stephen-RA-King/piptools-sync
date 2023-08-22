@@ -29,7 +29,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/commitizen-tools/commitizen
-    rev: 3.2.2
+    rev: 3.6.0
     hooks:
       - id: commitizen
         stages: [commit-msg]
@@ -41,13 +41,13 @@ repos:
         args: ["--filter-files"]
 
   - repo: https://github.com/psf/black
-    rev: 23.3.0
+    rev: 23.7.0
     hooks:
       - id: black
         alias: black
 
   - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
+    rev: 6.1.0
     hooks:
       - id: flake8
         additional_dependencies:
@@ -58,19 +58,19 @@ repos:
         args: ["--ignore=C901,E800,F842,F841,W503"]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.6.0
+    rev: v3.10.1
     hooks:
       - id: pyupgrade
         args: [--py39]
 
   - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v3.0.0-alpha.9-for-vscode
+    rev: v3.0.2
     hooks:
       - id: prettier
         stages: [commit]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.3.0
+    rev: v1.5.1
     hooks:
       - id: mypy
         alias: mypy
