@@ -11,11 +11,11 @@ and describe the problem you have found.
 
 An ideal bug report includes:
 
--   The Python version you are using
--   The piptools-sync version you are using (you can find it with `piptools-sync --version`)
--   Your operating system name and version (Linux, MacOS, Windows)
--   Your development environment and local setup (IDE, Terminal, project context, any relevant information that could be useful)
--   Some [minimal reproducible example](https://stackoverflow.com/help/mcve)
+- The Python version you are using
+- The piptools-sync version you are using (you can find it with `piptools-sync --version`)
+- Your operating system name and version (Linux, MacOS, Windows)
+- Your development environment and local setup (IDE, Terminal, project context, any relevant information that could be useful)
+- Some [minimal reproducible example](https://stackoverflow.com/help/mcve)
 
 # Implementing changes
 
