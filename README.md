@@ -50,7 +50,7 @@ The pre-commit autoupdate command just updates the "rev" for the "repo" in the .
 
 The following example displays the way flake8 and a few plugins are configured by the two tools :
 
--   pip-tools (via requirements.txt)
+- pip-tools (via requirements.txt)
 
 ```shell
 flake8==4.0.1
@@ -65,7 +65,7 @@ flake8-simplify==0.19.3
     # via ...
 ```
 
--   pre-commit (via .pre-commit-config.yaml)
+- pre-commit (via .pre-commit-config.yaml)
 
 ```shell
   - repo: https://github.com/pycqa/flake8
@@ -180,10 +180,10 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 
 [**Read the Docs**](https://piptools-sync.readthedocs.io/en/latest/?)
 
--   [**Example Usage**](https://piptools-sync.readthedocs.io/en/latest/example.html)
--   [**Credits**](https://piptools-sync.readthedocs.io/en/latest/example.html)
--   [**Changelog**](https://piptools-sync.readthedocs.io/en/latest/changelog.html)
--   [**API Reference**](https://piptools-sync.readthedocs.io/en/latest/autoapi/index.html)
+- [**Example Usage**](https://piptools-sync.readthedocs.io/en/latest/example.html)
+- [**Credits**](https://piptools-sync.readthedocs.io/en/latest/example.html)
+- [**Changelog**](https://piptools-sync.readthedocs.io/en/latest/changelog.html)
+- [**API Reference**](https://piptools-sync.readthedocs.io/en/latest/autoapi/index.html)
 
 [**Wiki**](https://github.com/Stephen-RA-King/piptools-sync/wiki)
 
@@ -191,9 +191,9 @@ _For more examples and usage, please refer to the [Wiki][wiki]._
 
 ---
 
--   Move some global variables into a separate settings file (toml).
--   Settings configurable from the command line (and therefore configurable from the pre-commit.yaml file).
--   Improve web request performance with asyncio / aiohttp libraries.
+- Move some global variables into a separate settings file (toml).
+- Settings configurable from the command line (and therefore configurable from the pre-commit.yaml file).
+- Improve web request performance with asyncio / aiohttp libraries.
 
 ## Meta
 
