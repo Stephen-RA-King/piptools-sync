@@ -1,6 +1,7 @@
 exclude: |
   (?x)^(
-      docs/source/conf.py|
+      docs/conf.py|
+      docs/example.ipynb|
       tests/[\w]*.py|
       tools/[\w]*.py|
       reports/[\w]*|
@@ -26,6 +27,8 @@ repos:
       - id: debug-statements
       - id: detect-private-key
       - id: end-of-file-fixer
+      - id: pretty-format-json
+      - id: requirements-txt-fixer
       - id: trailing-whitespace
 
   - repo: https://github.com/commitizen-tools/commitizen
@@ -33,6 +36,7 @@ repos:
     hooks:
       - id: commitizen
         stages: [commit-msg]
+
 
   - repo: https://github.com/pycqa/isort
     rev: 9.0.0a3
@@ -44,30 +48,29 @@ repos:
     rev: 26.5.1
     hooks:
       - id: black
-        alias: black
 
   - repo: https://github.com/pycqa/flake8
     rev: 7.3.0
     hooks:
       - id: flake8
         additional_dependencies:
-          #          - flake8-bugbear
-          #          - flake8-comprehensions
-          #          - flake8-eradicate
+          - flake8-bandit
+          - flake8-bugbear
+          - flake8-comprehensions
+          - flake8-docstrings
+          - flake8-eradicate
+          - flake8-html
+          - Flake8-pyproject
+          - flake8-pytest-style
           - flake8-simplify
-        args: ["--ignore=C901,E800,F842,F841,W503"]
+          - pep8-naming
+        args: ["--ignore=E800,F842,F841,W503"]
 
   - repo: https://github.com/asottile/pyupgrade
     rev: v3.21.2
     hooks:
       - id: pyupgrade
-        args: [--py39]
 
-  - repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v4.0.0-alpha.8
-    hooks:
-      - id: prettier
-        stages: [pre-commit]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v2.1.0
@@ -86,15 +89,16 @@ repos:
             "cache/.mypy_cache",
           ]
         additional_dependencies:
-          - types-dataclasses >= 0.1.3
+          - types-dataclasses
           - lxml
+
           - types-beautifulsoup4
           - types-html5lib
+          - types-python-dateutil
           - types-PyYAML
           - types-requests
           - types-toml
           - types-urllib3
-          - types-python-dateutil
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.9.4
@@ -102,7 +106,7 @@ repos:
       - id: bandit
         args:
           - -s
-          - B101,B301,B324,B403,B404,B602,B603,B607
+          - B101,B301,B403,B404,B603,B607
 
   - repo: meta
     hooks:
