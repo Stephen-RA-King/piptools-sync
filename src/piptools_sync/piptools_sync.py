@@ -248,7 +248,7 @@ def generate_db(force: int = 0) -> dict[str, str]:
     logger.debug("starting **** generate_db ****")
 
     def generate_file() -> dict:
-        """Create the mapping dictionary is it does not exist or is out of date."""
+        """Create the mapping dictionary if it does not exist or is out of date."""
         mapping_db = {}
         pyrepos = get_precommit_repos()
         logger.debug("List of precommit repositories: %s", pyrepos)
@@ -265,8 +265,8 @@ def generate_db(force: int = 0) -> dict[str, str]:
                 if result != 0:
                     logger.debug("project found on PyPI...mapping value to key")
                     mapping_db[inta_repo] = project
-        with MAPPING_FILE.open("w") as outfile:
-            json.dump(mapping_db, outfile)
+        with as_file(MAPPING_FILE) as mapping_path:
+            mapping_path.write_text(json.dumps(mapping_db), encoding="utf-8")
         return mapping_db
 
     with as_file(MAPPING_FILE) as mapping_file:
@@ -303,7 +303,7 @@ def find_yaml_config_file() -> Path:
             pc_file = filepath
             logger.debug("found file: %s", pc_file)
             return pc_file
-    raise FileNotFoundError(f"Cannot locate '{PRECOMMIT_CONFIG_FILE}'")
+    raise FileNotFoundError(f"Cannot locate {PRECOMMIT_CONFIG_FILE!r}")
 
 
 def yaml_to_dict(yaml_file: Path) -> dict:
@@ -474,6 +474,20 @@ def get_requirement_versions(req_file: Path, req_list: list) -> dict:
 
 
 def main() -> int:
+    """Check that pre-commit hook versions match piptools-locked package versions.
+
+    Loads settings, locates the pre-commit YAML config and the requirements
+    file, then cross-references each pre-commit repo's pinned revision
+    against the corresponding package version resolved by piptools. Any
+    mismatches are logged, and if ``UPDATE_PC_YAML_FILE`` is enabled, the
+    pre-commit config is updated in place to match the piptools version.
+
+    Returns
+    -------
+    int
+        0 if all pre-commit versions are in sync with piptools, 1 if any
+        mismatches were found.
+    """
     load_settings()
     logger.debug(
         f"\nROOT_DIR: {'':20}{ROOT_DIR}\n" f"MAPPING_FILE: {'':20}{MAPPING_FILE}\n"
