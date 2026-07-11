@@ -8,7 +8,6 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
-    branches: [main]
 
 jobs:
   test:
@@ -17,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python-version: ["3.9"]
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
         exclude:
           - os: windows-latest
             python-version: "3.8"

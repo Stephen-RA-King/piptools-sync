@@ -4,8 +4,6 @@
 #
 #    pip-compile development.in
 #
---index-url https://pkgs.safetycli.com/repository/none-4c687/pypi/simple/
-
 alabaster==1.0.0
     # via sphinx
 annotated-types==0.7.0
@@ -49,7 +47,7 @@ black==26.5.1
     # via -r development.in
 bleach[css]==6.4.0
     # via nbconvert
-build==1.5.0
+build==1.5.1
     # via -r development.in
 cachetools==7.1.4
     # via tox
@@ -129,7 +127,7 @@ executing==2.2.1
     # via stack-data
 fastjsonschema==2.21.2
     # via nbformat
-filelock==3.29.6
+filelock==3.29.7
     # via
     #   python-discovery
     #   tox
@@ -250,7 +248,7 @@ jsonschema[format-nongpl]==4.26.0
     # via jsonschema
 jupyter==1.1.1
     # via -r development.in
-jupyter-builder==1.0.2
+jupyter-builder==1.1.0
     # via
     #   jupyterlab
     #   notebook
@@ -306,7 +304,7 @@ keyring==25.7.0
     #   twine
 lark==1.3.1
     # via rfc3987-syntax
-librt==0.12.0
+librt==0.13.0
     # via mypy
 lxml==6.1.1
     # via -r development.in
@@ -329,13 +327,13 @@ mdit-py-plugins==0.6.1
     # via myst-parser
 mdurl==0.1.2
     # via markdown-it-py
-mistune==3.3.2
+mistune==3.3.3
     # via nbconvert
 more-itertools==11.1.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-mypy==2.1.0
+mypy==2.2.0
     # via -r development.in
 mypy-extensions==1.1.0
     # via
@@ -487,7 +485,7 @@ python-dateutil==2.9.0.post0
     # via
     #   arrow
     #   jupyter-client
-python-discovery==1.4.3
+python-discovery==1.4.4
     # via
     #   tox
     #   virtualenv
@@ -640,7 +638,7 @@ tornado==6.5.7
     #   jupyterlab
     #   notebook
     #   terminado
-tox==4.56.2
+tox==4.56.4
     # via -r development.in
 tqdm==4.68.4
     # via -r development.in
@@ -694,7 +692,7 @@ typing-extensions==4.16.0
     #   typing-inspection
 typing-inspection==0.4.2
     # via pydantic
-tzdata==2026.2
+tzdata==2026.3
     # via arrow
 uri-template==1.3.0
     # via jsonschema
@@ -704,7 +702,7 @@ urllib3==2.7.0
     #   requests
     #   twine
     #   types-requests
-virtualenv==21.6.0
+virtualenv==21.6.1
     # via
     #   pre-commit
     #   tox
